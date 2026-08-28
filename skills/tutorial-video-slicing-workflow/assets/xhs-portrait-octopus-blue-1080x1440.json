@@ -1,0 +1,68 @@
+{
+  "version": "2.0",
+  "status": "layout-approved-preview-verified",
+  "canvas": {
+    "width": 1080,
+    "height": 1440,
+    "sar": "1:1",
+    "background": {
+      "id": "octopus-blue-ice-gradient-v2",
+      "linear": ["#EAF2FF", "#D7E7FF", "#DDEEFF"],
+      "radial_brand_blue_opacity": 0.16
+    }
+  },
+  "title": {
+    "align": "center",
+    "zone": {"x": 60, "y": 86, "width": 960, "height": 320},
+    "line_1": "white-heavy-on-brand-blue-rounded-band",
+    "line_1_letter_spacing_em": 0.02,
+    "line_2": "neutral-gray-heavy",
+    "line_2_color": "#3F3F3F",
+    "line_2_letter_spacing_em": 0.04,
+    "line_gap": 38,
+    "max_lines": 2,
+    "default_visual_top": 135,
+    "default_visual_bottom": 357
+  },
+  "proof_card": {
+    "x": 48,
+    "y": 457,
+    "width": 984,
+    "height": 672,
+    "inset": 8
+  },
+  "video_viewport": {
+    "x": 56,
+    "y": 465,
+    "width": 968,
+    "height": 656,
+    "default_fit": "fill",
+    "allow_stretch": false,
+    "allow_blurred_background": false
+  },
+  "caption": {
+    "zone": {"x": 60, "y": 1229, "width": 960, "height": 76},
+    "position": "below-proof-card",
+    "single_line": true,
+    "adaptive_width": true,
+    "terminal_period": false,
+    "align": "center",
+    "background_rgba": [0.06, 0.06, 0.06, 0.82],
+    "background_source": "same-as-horizontal-lower-third"
+  },
+  "spacing": {
+    "title_to_proof": 100,
+    "proof_to_caption": 100,
+    "outer_visual_top": 135,
+    "outer_visual_bottom": 135
+  },
+  "completion_state": {
+    "color": "green",
+    "checkmark": "vector-path-only"
+  },
+  "cover_from_inner": {
+    "hide_caption": true,
+    "title_translate_y": 50,
+    "proof_card_translate_y": 92
+  }
+}

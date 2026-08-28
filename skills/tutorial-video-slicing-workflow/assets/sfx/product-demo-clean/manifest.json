@@ -1,0 +1,356 @@
+{
+  "schema_version": "1.0",
+  "library_id": "product-demo-clean",
+  "sample_rate_hz": 48000,
+  "channels": 1,
+  "sample_format": "pcm_s16le",
+  "default_intensity": "clear",
+  "intensity_gain_db": {
+    "subtle": -4.0,
+    "clear": 0.0,
+    "promo": 3.0
+  },
+  "rules": {
+    "human_wow": "forbidden",
+    "background_music_default": "off",
+    "voice_priority": true,
+    "final_mix_peak_ceiling_dbfs": -1.0
+  },
+  "audition_order": [
+    "ui.click.soft.01",
+    "ui.click.soft.02",
+    "ui.click.soft.03",
+    "input.keypress.soft.01",
+    "input.keypress.soft.02",
+    "input.keypress.soft.03",
+    "input.keypress.soft.04",
+    "input.keypress.soft.05",
+    "input.keypress.soft.06",
+    "input.ime.confirm",
+    "navigation.page.enter",
+    "navigation.tab.switch",
+    "navigation.menu.open",
+    "task.start",
+    "task.progress.pulse.01",
+    "task.progress.pulse.02",
+    "stage.search",
+    "stage.collect",
+    "stage.clean",
+    "stage.validate",
+    "stage.analyze",
+    "stage.generate",
+    "stage.export",
+    "result.reveal.soft",
+    "result.file.created",
+    "result.save.success",
+    "result.copy.success",
+    "file.upload",
+    "file.download",
+    "system.install.success",
+    "system.connect.success",
+    "complete.task",
+    "complete.final.delivery",
+    "feedback.warning",
+    "feedback.error",
+    "feedback.retry",
+    "transition.chapter.whoosh"
+  ],
+  "assets": [
+    {
+      "id": "ui.click.soft.01",
+      "path": "ui/click-soft-01.wav",
+      "event": "ui_click",
+      "description": "关键真实点击；多个点击时轮换使用",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.085
+    },
+    {
+      "id": "ui.click.soft.02",
+      "path": "ui/click-soft-02.wav",
+      "event": "ui_click",
+      "description": "关键真实点击；多个点击时轮换使用",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.085
+    },
+    {
+      "id": "ui.click.soft.03",
+      "path": "ui/click-soft-03.wav",
+      "event": "ui_click",
+      "description": "关键真实点击；多个点击时轮换使用",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.085
+    },
+    {
+      "id": "input.keypress.soft.01",
+      "path": "input/keypress-soft-01.wav",
+      "event": "typing",
+      "description": "单次键盘音变体；只跟随真实字符出现",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.052
+    },
+    {
+      "id": "input.keypress.soft.02",
+      "path": "input/keypress-soft-02.wav",
+      "event": "typing",
+      "description": "单次键盘音变体；只跟随真实字符出现",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.052
+    },
+    {
+      "id": "input.keypress.soft.03",
+      "path": "input/keypress-soft-03.wav",
+      "event": "typing",
+      "description": "单次键盘音变体；只跟随真实字符出现",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.052
+    },
+    {
+      "id": "input.keypress.soft.04",
+      "path": "input/keypress-soft-04.wav",
+      "event": "typing",
+      "description": "单次键盘音变体；只跟随真实字符出现",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.052
+    },
+    {
+      "id": "input.keypress.soft.05",
+      "path": "input/keypress-soft-05.wav",
+      "event": "typing",
+      "description": "单次键盘音变体；只跟随真实字符出现",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.052
+    },
+    {
+      "id": "input.keypress.soft.06",
+      "path": "input/keypress-soft-06.wav",
+      "event": "typing",
+      "description": "单次键盘音变体；只跟随真实字符出现",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.052
+    },
+    {
+      "id": "input.ime.confirm",
+      "path": "input/ime-confirm.wav",
+      "event": "ime_confirm",
+      "description": "中文输入法转换或关键词输入完成",
+      "target_peak_dbfs": -20.0,
+      "duration_seconds": 0.13
+    },
+    {
+      "id": "navigation.page.enter",
+      "path": "navigation/page-enter.wav",
+      "event": "page_enter",
+      "description": "重要页面或章节进入",
+      "target_peak_dbfs": -22.0,
+      "duration_seconds": 0.34
+    },
+    {
+      "id": "navigation.tab.switch",
+      "path": "navigation/tab-switch.wav",
+      "event": "tab_switch",
+      "description": "标签页或视图切换",
+      "target_peak_dbfs": -20.0,
+      "duration_seconds": 0.12
+    },
+    {
+      "id": "navigation.menu.open",
+      "path": "navigation/menu-open.wav",
+      "event": "menu_open",
+      "description": "菜单、抽屉或弹层展开",
+      "target_peak_dbfs": -22.0,
+      "duration_seconds": 0.22
+    },
+    {
+      "id": "task.start",
+      "path": "task/task-start.wav",
+      "event": "task_start",
+      "description": "任务提交并开始响应",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.34
+    },
+    {
+      "id": "task.progress.pulse.01",
+      "path": "task/progress-pulse-01.wav",
+      "event": "progress_pulse",
+      "description": "等待超过三秒时的稀疏进度提示",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.19
+    },
+    {
+      "id": "task.progress.pulse.02",
+      "path": "task/progress-pulse-02.wav",
+      "event": "progress_pulse",
+      "description": "等待超过三秒时的稀疏进度提示变体",
+      "target_peak_dbfs": -24.0,
+      "duration_seconds": 0.19
+    },
+    {
+      "id": "stage.search",
+      "path": "stage/search.wav",
+      "event": "stage_search",
+      "description": "执行阶段确认：检索",
+      "target_peak_dbfs": -19.0,
+      "duration_seconds": 0.14
+    },
+    {
+      "id": "stage.collect",
+      "path": "stage/collect.wav",
+      "event": "stage_collect",
+      "description": "执行阶段确认：采集",
+      "target_peak_dbfs": -18.55,
+      "duration_seconds": 0.14
+    },
+    {
+      "id": "stage.clean",
+      "path": "stage/clean.wav",
+      "event": "stage_clean",
+      "description": "执行阶段确认：清洗",
+      "target_peak_dbfs": -18.1,
+      "duration_seconds": 0.14
+    },
+    {
+      "id": "stage.validate",
+      "path": "stage/validate.wav",
+      "event": "stage_validate",
+      "description": "执行阶段确认：校验",
+      "target_peak_dbfs": -17.65,
+      "duration_seconds": 0.14
+    },
+    {
+      "id": "stage.analyze",
+      "path": "stage/analyze.wav",
+      "event": "stage_analyze",
+      "description": "执行阶段确认：分析",
+      "target_peak_dbfs": -17.2,
+      "duration_seconds": 0.14
+    },
+    {
+      "id": "stage.generate",
+      "path": "stage/generate.wav",
+      "event": "stage_generate",
+      "description": "执行阶段确认：生成",
+      "target_peak_dbfs": -16.75,
+      "duration_seconds": 0.14
+    },
+    {
+      "id": "stage.export",
+      "path": "stage/export.wav",
+      "event": "stage_export",
+      "description": "执行阶段确认：导出",
+      "target_peak_dbfs": -16.3,
+      "duration_seconds": 0.14
+    },
+    {
+      "id": "result.reveal.soft",
+      "path": "result/result-reveal-soft.wav",
+      "event": "result_reveal",
+      "description": "中间结果或报告首次稳定出现",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.33
+    },
+    {
+      "id": "result.file.created",
+      "path": "result/file-created.wav",
+      "event": "file_created",
+      "description": "文件、报告或数据包生成",
+      "target_peak_dbfs": -17.0,
+      "duration_seconds": 0.4
+    },
+    {
+      "id": "result.save.success",
+      "path": "result/save-success.wav",
+      "event": "save_success",
+      "description": "保存完成的微反馈",
+      "target_peak_dbfs": -20.0,
+      "duration_seconds": 0.11
+    },
+    {
+      "id": "result.copy.success",
+      "path": "result/copy-success.wav",
+      "event": "copy_success",
+      "description": "复制成功的微反馈",
+      "target_peak_dbfs": -21.0,
+      "duration_seconds": 0.09
+    },
+    {
+      "id": "file.upload",
+      "path": "file/upload.wav",
+      "event": "upload",
+      "description": "上传开始或完成",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.28
+    },
+    {
+      "id": "file.download",
+      "path": "file/download.wav",
+      "event": "download",
+      "description": "下载开始或完成",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.28
+    },
+    {
+      "id": "system.install.success",
+      "path": "system/install-success.wav",
+      "event": "install_success",
+      "description": "Skill、插件或组件安装成功",
+      "target_peak_dbfs": -16.0,
+      "duration_seconds": 0.46
+    },
+    {
+      "id": "system.connect.success",
+      "path": "system/connect-success.wav",
+      "event": "connect_success",
+      "description": "数据库、服务或工具连接成功",
+      "target_peak_dbfs": -16.0,
+      "duration_seconds": 0.52
+    },
+    {
+      "id": "complete.task",
+      "path": "complete/task-complete.wav",
+      "event": "task_complete",
+      "description": "普通任务完成；一条视频最多使用一次或两次",
+      "target_peak_dbfs": -15.0,
+      "duration_seconds": 0.58
+    },
+    {
+      "id": "complete.final.delivery",
+      "path": "complete/final-delivery.wav",
+      "event": "final_delivery",
+      "description": "最终成果交付；全片最高层级完成反馈",
+      "target_peak_dbfs": -12.5,
+      "duration_seconds": 0.72
+    },
+    {
+      "id": "feedback.warning",
+      "path": "feedback/warning.wav",
+      "event": "warning",
+      "description": "需要注意但不阻断流程",
+      "target_peak_dbfs": -16.0,
+      "duration_seconds": 0.45
+    },
+    {
+      "id": "feedback.error",
+      "path": "feedback/error.wav",
+      "event": "error",
+      "description": "失败或阻断；避免刺耳报警",
+      "target_peak_dbfs": -14.0,
+      "duration_seconds": 0.22
+    },
+    {
+      "id": "feedback.retry",
+      "path": "feedback/retry.wav",
+      "event": "retry",
+      "description": "重新尝试或恢复执行",
+      "target_peak_dbfs": -18.0,
+      "duration_seconds": 0.25
+    },
+    {
+      "id": "transition.chapter.whoosh",
+      "path": "transition/chapter-whoosh.wav",
+      "event": "chapter_enter",
+      "description": "章节卡稳定后轻扫入",
+      "target_peak_dbfs": -22.0,
+      "duration_seconds": 0.4
+    }
+  ]
+}

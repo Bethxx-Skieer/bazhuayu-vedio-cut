@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "locale": "zh_CN",
+  "backend": "say",
+  "voice": "Lilian (Premium)",
+  "display_name": "黎潋",
+  "rate": 185,
+  "max_stretch": 1.18,
+  "fallback_policy": "require_user_confirmation",
+  "notes": "默认中文客观讲解音色。未安装时必须停止并让用户确认替代音色，禁止静默回退。"
+}

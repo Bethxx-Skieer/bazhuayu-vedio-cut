@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0",
+  "library": "product-demo-clean",
+  "events": {
+    "ui_click": {
+      "sfx_assets": ["ui.click.soft.01", "ui.click.soft.02", "ui.click.soft.03"],
+      "visual": "click_ripple",
+      "timing_anchor": "mouse_down_or_control_state_change",
+      "max_per_10_seconds": 5
+    },
+    "typing": {
+      "sfx_assets": ["input.keypress.soft.01", "input.keypress.soft.02", "input.keypress.soft.03", "input.keypress.soft.04", "input.keypress.soft.05", "input.keypress.soft.06"],
+      "visual": "input_focus_box",
+      "timing_anchor": "each_visible_character_or_character_group",
+      "max_per_10_seconds": 18
+    },
+    "ime_confirm": {
+      "sfx_assets": ["input.ime.confirm"],
+      "visual": "keyword_highlight",
+      "timing_anchor": "final_converted_text_visible",
+      "max_per_10_seconds": 2
+    },
+    "page_enter": {
+      "sfx_assets": ["navigation.page.enter"],
+      "visual": "none",
+      "timing_anchor": "new_page_stable",
+      "max_per_10_seconds": 2
+    },
+    "tab_switch": {
+      "sfx_assets": ["navigation.tab.switch"],
+      "visual": "click_ripple",
+      "timing_anchor": "new_tab_selected",
+      "max_per_10_seconds": 3
+    },
+    "menu_open": {
+      "sfx_assets": ["navigation.menu.open"],
+      "visual": "click_ripple",
+      "timing_anchor": "menu_fully_visible",
+      "max_per_10_seconds": 2
+    },
+    "task_start": {
+      "sfx_assets": ["task.start"],
+      "visual": "task_start_chip",
+      "timing_anchor": "submit_click_or_first_running_state",
+      "max_per_video": 3
+    },
+    "progress_pulse": {
+      "sfx_assets": ["task.progress.pulse.01", "task.progress.pulse.02"],
+      "visual": "progress_pulse",
+      "timing_anchor": "verified_waiting_interval",
+      "max_per_10_seconds": 3
+    },
+    "stage_search": {"sfx_assets": ["stage.search"], "visual": "stage_chip_search", "timing_anchor": "search_state_visible_or_spoken"},
+    "stage_collect": {"sfx_assets": ["stage.collect"], "visual": "stage_chip_collect", "timing_anchor": "collect_state_visible_or_spoken"},
+    "stage_clean": {"sfx_assets": ["stage.clean"], "visual": "stage_chip_clean", "timing_anchor": "clean_state_visible_or_spoken"},
+    "stage_validate": {"sfx_assets": ["stage.validate"], "visual": "stage_chip_validate", "timing_anchor": "validate_state_visible_or_spoken"},
+    "stage_analyze": {"sfx_assets": ["stage.analyze"], "visual": "stage_chip_analyze", "timing_anchor": "analyze_state_visible_or_spoken"},
+    "stage_generate": {"sfx_assets": ["stage.generate"], "visual": "stage_chip_generate", "timing_anchor": "generate_state_visible_or_spoken"},
+    "stage_export": {"sfx_assets": ["stage.export"], "visual": "stage_chip_export", "timing_anchor": "export_state_visible_or_spoken"},
+    "result_reveal": {
+      "sfx_assets": ["result.reveal.soft"],
+      "visual": "result_focus_box",
+      "timing_anchor": "result_stable_and_readable",
+      "max_per_10_seconds": 2
+    },
+    "file_created": {
+      "sfx_assets": ["result.file.created"],
+      "visual": "file_created_chip",
+      "timing_anchor": "file_name_and_icon_visible",
+      "max_per_10_seconds": 3
+    },
+    "save_success": {"sfx_assets": ["result.save.success"], "visual": "micro_success_chip", "timing_anchor": "save_confirmation_visible"},
+    "copy_success": {"sfx_assets": ["result.copy.success"], "visual": "micro_success_chip", "timing_anchor": "copy_confirmation_visible"},
+    "upload": {"sfx_assets": ["file.upload"], "visual": "progress_pulse", "timing_anchor": "upload_state_change"},
+    "download": {"sfx_assets": ["file.download"], "visual": "file_created_chip", "timing_anchor": "download_state_change"},
+    "install_success": {"sfx_assets": ["system.install.success"], "visual": "task_complete_chip", "timing_anchor": "installed_state_visible"},
+    "connect_success": {"sfx_assets": ["system.connect.success"], "visual": "task_complete_chip", "timing_anchor": "connected_state_visible"},
+    "task_complete": {
+      "sfx_assets": ["complete.task"],
+      "visual": "task_complete_chip",
+      "timing_anchor": "task_status_complete_visible",
+      "max_per_video": 2
+    },
+    "final_delivery": {
+      "sfx_assets": ["complete.final.delivery"],
+      "visual": "final_delivery_chip",
+      "timing_anchor": "all_promised_deliverables_visible",
+      "max_per_video": 1
+    },
+    "warning": {"sfx_assets": ["feedback.warning"], "visual": "warning_chip", "timing_anchor": "warning_visible"},
+    "error": {"sfx_assets": ["feedback.error"], "visual": "error_chip", "timing_anchor": "error_visible"},
+    "retry": {"sfx_assets": ["feedback.retry"], "visual": "retry_chip", "timing_anchor": "retry_begins"},
+    "chapter_enter": {
+      "sfx_assets": ["transition.chapter.whoosh"],
+      "visual": "chapter_card",
+      "timing_anchor": "chapter_card_stable",
+      "max_per_video": 6
+    }
+  }
+}

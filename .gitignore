@@ -1,0 +1,40 @@
+# ---- 大文件与临时产物：一律不入库 ----
+# 视频
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.webm
+# 中间音频（技能自带 assets/sfx 音效库除外，见下方 ! 规则）
+work/**/*.wav
+work/**/*.mp3
+projects/**/audio_drafts/
+# 截图与缓存
+screenshots/
+scene_frames/
+*.jpg
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# work/ 只保留目录结构
+work/*
+!work/.gitkeep
+
+# projects/ 下的中间处理区不入库
+projects/**/workspace/
+
+# 但模板目录保留骨架
+!projects/_template/workspace/
+!projects/_template/workspace/.gitkeep
+!projects/_template/captions/
+!projects/_template/captions/.gitkeep
+!projects/_template/deliverables/
+!projects/_template/deliverables/.gitkeep
+
+# ---- 必须入库的例外 ----
+# 技能包内的音效库、预览图与配置是规范的一部分
+!skills/**/*.wav
+!skills/**/*.png
+!skills/**/*.json

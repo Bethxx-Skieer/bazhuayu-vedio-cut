@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "cue_sheet": "/Users/wang/Documents/Codex/2026-08-12/hsi/work/skill-update-product-demo/tutorial-video-slicing-workflow/assets/enhancement-cue-sheet.example.json",
+  "output": "/Users/wang/Documents/Codex/2026-08-12/hsi/work/skill-update-product-demo/tutorial-video-slicing-workflow/assets/sfx/product-demo-clean/example-timeline-clear.wav",
+  "preset": "clear",
+  "duration_seconds": 16.0,
+  "sample_rate_hz": 48000,
+  "cue_count": 16,
+  "pre_normalize_peak_dbfs": -12.5,
+  "normalization_gain_db": 0.0,
+  "final_peak_dbfs": -12.5,
+  "cues": [
+    {
+      "time": 0.35,
+      "event": "chapter_enter",
+      "asset": "transition.chapter.whoosh",
+      "gain_db": 0.0,
+      "note": "章节卡稳定后"
+    },
+    {
+      "time": 2.2,
+      "event": "ui_click",
+      "asset": "ui.click.soft.01",
+      "gain_db": 0.0,
+      "note": "真实点击输入框"
+    },
+    {
+      "time": 2.55,
+      "event": "typing",
+      "asset": "input.keypress.soft.01",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 2.72,
+      "event": "typing",
+      "asset": "input.keypress.soft.02",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 2.91,
+      "event": "typing",
+      "asset": "input.keypress.soft.03",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 3.1,
+      "event": "typing",
+      "asset": "input.keypress.soft.04",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 3.32,
+      "event": "ime_confirm",
+      "asset": "input.ime.confirm",
+      "gain_db": 0.0,
+      "note": "关键词转换完成"
+    },
+    {
+      "time": 4.05,
+      "event": "ui_click",
+      "asset": "ui.click.soft.02",
+      "gain_db": 0.0,
+      "note": "真实点击提交"
+    },
+    {
+      "time": 4.13,
+      "event": "task_start",
+      "asset": "task.start",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 5.7,
+      "event": "stage_search",
+      "asset": "stage.search",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 7.0,
+      "event": "stage_clean",
+      "asset": "stage.clean",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 8.35,
+      "event": "stage_analyze",
+      "asset": "stage.analyze",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 10.1,
+      "event": "result_reveal",
+      "asset": "result.reveal.soft",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 11.7,
+      "event": "file_created",
+      "asset": "result.file.created",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 13.4,
+      "event": "task_complete",
+      "asset": "complete.task",
+      "gain_db": 0.0,
+      "note": ""
+    },
+    {
+      "time": 14.85,
+      "event": "final_delivery",
+      "asset": "complete.final.delivery",
+      "gain_db": 0.0,
+      "note": ""
+    }
+  ]
+}

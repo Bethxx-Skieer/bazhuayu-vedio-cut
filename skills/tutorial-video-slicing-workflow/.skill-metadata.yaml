@@ -1,0 +1,172 @@
+examples:
+  - id: tutorial-slicing
+    title:
+      zh: 教程切片与板块切割
+      en: Tutorial Slicing & Section Cuts
+    description:
+      zh: 从长教程或屏幕录制中识别板块、切割并提取高光切片
+      en: Detect sections in a long tutorial or screen recording, then cut and extract highlight clips
+    prompt:
+      zh: |-
+        请处理这份教程视频素材，识别板块边界并完成切片：
+
+        素材文件：{{zip 或视频路径}}
+        输出目录：{{输出根目录}}
+
+        按板块切割横版视频，提取高光切片，并对标记为竖版的切片生成小红书 3:4 品牌版，最后输出切片成品说明文档。
+      en: |-
+        Process this tutorial footage: detect section boundaries and produce clips.
+
+        Source: {{zip or video path}}
+        Output: {{output root folder}}
+
+        Cut section videos in 16:9, extract highlight slices, render 3:4 brand versions for slices marked vertical, and finish with a delivery README.
+
+  - id: enterprise-business-demo
+    title:
+      zh: 企业业务演示视频
+      en: Enterprise Business Demo Video
+    description:
+      zh: 用 Agent/RPA/SaaS 真实操作素材制作业务解说演示片
+      en: Build a narrated business demo from real Agent/RPA/SaaS operation footage
+    prompt:
+      zh: |-
+        请用以下真实操作素材和业务资料制作企业业务演示视频：
+
+        操作素材：{{视频文件或目录}}
+        业务文字稿/资料：{{文档路径}}
+        版本要求：{{总览版 / 详解版}}
+        输出目录：{{输出根目录}}
+
+        先建立素材证据库并锁定唯一旁白脚本给我确认，再展开配音、字幕、画面匹配与组件补齐方案，最后从同一时间线渲染 16:9 横版与 3:4 竖版。
+      en: |-
+        Turn this real operation footage and business material into a narrated enterprise demo video.
+
+        Footage: {{video files or folder}}
+        Transcript/material: {{document path}}
+        Variant: {{overview / detailed}}
+        Output: {{output root folder}}
+
+        First build a footage evidence library and lock one narration script for my approval, then plan voiceover, subtitles, footage matching and brand components, and finally render 16:9 and 3:4 from the same timeline.
+
+  - id: social-promo-effect-first
+    title:
+      zh: 效果前置社媒宣发片
+      en: Effect-First Social Promo
+    description:
+      zh: 把无字幕无配音的产品演示素材重组为效果前置宣发成片
+      en: Rebuild a silent product demo recording into an effect-first social promo
+    prompt:
+      zh: |-
+        请把这段无字幕、无配音的产品演示素材剪成社媒宣发视频：
+
+        素材：{{视频路径（可为多个分段）}}
+        投放平台：{{小红书 / 视频号 / 抖音}}
+        输出目录：{{输出根目录}}
+
+        先给出素材证据表和效果前置的时间线方案，我确认后再统一渲染带字幕和配音的成片。
+      en: |-
+        Edit this subtitle-free, voiceover-free product demo into a social promo video.
+
+        Footage: {{video path(s), may be multiple segments}}
+        Platform: {{Xiaohongshu / WeChat Channels / Douyin}}
+        Output: {{output root folder}}
+
+        Deliver a footage evidence table and an effect-first timeline plan first; render the subtitled, voiced cut only after I confirm.
+
+  - id: unified-subtitles
+    title:
+      zh: 统一字幕烧录
+      en: Burn Unified Subtitles
+    description:
+      zh: 用唯一样式配置为视频烧录统一规范的字幕并出预览
+      en: Burn spec-compliant subtitles with the single style config and produce a preview
+    prompt:
+      zh: |-
+        请为这条视频烧录统一样式字幕：
+
+        视频：{{视频路径}}
+        字幕文件：{{SRT/JSON 路径}}
+        先输出前60秒字幕预览供确认，确认后整片烧录并给出含样式 SHA-256 的报告。
+      en: |-
+        Burn uniformly styled subtitles onto this video.
+
+        Video: {{video path}}
+        Subtitle file: {{SRT/JSON path}}
+
+        Produce a first-60-seconds preview for approval first, then burn the full video with a report including the style SHA-256.
+
+  - id: caption-driven-voiceover
+    title:
+      zh: 字幕转对齐配音
+      en: Caption-Driven Voiceover
+    description:
+      zh: 按字幕时间码逐句生成中文旁白并合成回视频
+      en: Generate sentence-level Chinese voiceover aligned to subtitle timecodes and mix it back
+    prompt:
+      zh: |-
+        请根据字幕时间轴为视频生成对齐配音：
+
+        视频：{{视频路径}}
+        字幕：{{SRT/VTT/JSON 路径}}
+        音色：黎潋（如需更换请先向我确认替代音色）
+        原声处理：{{替换原声 / 压低原声后混音}}
+
+        先跑 --dry-run 时间轴校验并给我配音计划，确认后再逐句合成并合回视频，保留 JSON 质检报告。
+      en: |-
+        Create a timecode-aligned voiceover from the subtitles.
+
+        Video: {{video path}}
+        Subtitles: {{SRT/VTT/JSON path}}
+        Voice: Lilian (ask me before substituting any other voice)
+        Original audio: {{replace / duck and mix}}
+
+        Run the --dry-run timeline check and share the voiceover plan first; synthesize sentence by sentence and mix back only after I confirm, keeping the JSON QA report.
+
+  - id: xhs-portrait-34
+    title:
+      zh: 小红书 3:4 品牌竖版
+      en: Xiaohongshu 3:4 Brand Portrait
+    description:
+      zh: 把横版成品派生为冰蓝品牌画布 1080×1440 竖版
+      en: Derive a 1080x1440 ice-blue brand portrait cut from the landscape master
+    prompt:
+      zh: |-
+        请把这条横版视频转成小红书 3:4 品牌版：
+
+        横版母版：{{16:9 视频路径}}
+        字幕与配音时间轴：{{SRT/JSON 路径}}
+        输出目录：{{输出根目录}}
+
+        使用冰蓝品牌画布和产品框 fill 铺满模式，逐镜头确认 framing-cues，字幕在产品框外重新排版，不得缩放或复用已烧录的横版字幕。
+      en: |-
+        Convert this landscape video into a Xiaohongshu 3:4 brand portrait cut.
+
+        Landscape master: {{16:9 video path}}
+        Subtitle & voiceover timeline: {{SRT/JSON path}}
+        Output: {{output root folder}}
+
+        Use the ice-blue brand canvas with fill mode, confirm framing cues per shot, and re-layout subtitles outside the product frame; never rescale or reuse burned-in landscape subtitles.
+
+  - id: demo-sfx-enhancement
+    title:
+      zh: 产品演示音效增强
+      en: Product Demo SFX Enhancement
+    description:
+      zh: 为点击、输入、结果等真实界面事件叠加统一音效与视觉强调
+      en: Layer unified SFX and visual emphasis on real click, typing and result events
+    prompt:
+      zh: |-
+        请为这条产品演示视频做音效与视觉增强：
+
+        视频：{{已锁定字幕和配音的 16:9 视频路径}}
+        强度：clear（默认）
+
+        逐帧确认真实界面事件建立 cue sheet，使用统一音效库和增强样式合成音效轨与透明覆盖层，先出无字幕内容母版，再派生横版与 3:4 版。
+      en: |-
+        Add SFX and visual enhancement to this product demo recording.
+
+        Video: {{locked 16:9 video with subtitles and voiceover}}
+        Intensity: clear (default)
+
+        Confirm real UI events frame by frame into a cue sheet, compose the SFX track and transparent overlay from the shared library and style, render the subtitle-free content master first, then derive 16:9 and 3:4 cuts.

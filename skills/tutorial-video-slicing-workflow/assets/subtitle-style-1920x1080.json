@@ -1,0 +1,107 @@
+{
+  "version": "2.1-social-caption",
+  "master_canvas": {
+    "width": 1920,
+    "height": 1080,
+    "sar": "1:1",
+    "dar": "16:9",
+    "fps": 30,
+    "pixel_format": "yuv420p"
+  },
+  "font": {
+    "family": "PingFang SC",
+    "fallback_family": "Hiragino Sans GB",
+    "title_weight": "Semibold",
+    "body_weight": "Semibold",
+    "secondary_weight": "Medium",
+    "cjk_letter_spacing": 0,
+    "synthetic_stroke_allowed": false
+  },
+  "chapter_card": {
+    "x": 76,
+    "y": 404,
+    "width": 1768,
+    "height": 272,
+    "radius": 26,
+    "padding_x": 72,
+    "background_rgba": [0.04, 0.08, 0.14, 0.9],
+    "title": {
+      "font_size": 70,
+      "line_height": 86,
+      "color": "#FFFFFF"
+    },
+    "subtitle": {
+      "font_size": 37,
+      "line_height": 52,
+      "color": "#6EC1FF"
+    },
+    "line_gap": 14,
+    "align": "center",
+    "vertical_align": "middle",
+    "duration_seconds": 1.8,
+    "fade_in_seconds": 0.18,
+    "fade_out_seconds": 0.2
+  },
+  "lower_third": {
+    "width_mode": "text_plus_padding",
+    "anchor": "bottom_center",
+    "center_x": 960,
+    "safe_margin_x": 160,
+    "min_width": 320,
+    "max_width": 1600,
+    "x_formula": "round((1920 - computed_width) / 2)",
+    "bottom_y": 958,
+    "bottom_safe_margin": 122,
+    "radius": 16,
+    "padding_x": 42,
+    "background_rgba": [0.1, 0.1, 0.1, 0.72],
+    "background_shape": "rounded_rectangle",
+    "align": "center",
+    "vertical_align": "middle",
+    "single_line": {
+      "y": 876,
+      "height": 82,
+      "font_size": 48,
+      "line_height": 60,
+      "color": "#FFFFFF"
+    },
+    "measurement": {
+      "method": "font_bbox",
+      "computed_width_formula": "clamp(ceil(text_width + 2 * padding_x), min_width, max_width)",
+      "max_text_width": 1516,
+      "snap_to_even_pixel": true
+    },
+    "fade_in_ratio": 0.08,
+    "fade_out_ratio": 0.1
+  },
+  "copy_rules": {
+    "separator": "｜",
+    "quote_open": "「",
+    "quote_close": "」",
+    "space_between_cjk_and_latin": 1,
+    "max_lines": 1,
+    "wrap_allowed": false,
+    "font_shrink_allowed": false,
+    "overflow_strategy": "split_into_sequential_cues",
+    "recommended_single_line_cjk_chars": 20,
+    "terminal_full_stop": "strip",
+    "terminal_full_stop_characters": ["。", "."],
+    "preserve_terminal_question_and_exclamation": true,
+    "operation_duration_seconds": [2.5, 4.0],
+    "result_duration_seconds": [5.0, 8.0],
+    "allow_chapter_and_lower_third_overlap": false
+  },
+  "xiaohongshu_3x4": {
+    "canvas_width": 1080,
+    "canvas_height": 1440,
+    "background": "#000000",
+    "content_width": 1080,
+    "content_height": 608,
+    "content_x": 0,
+    "content_y": 416,
+    "scale_from_master": 0.5625,
+    "sar": "1:1",
+    "dar": "3:4",
+    "subtitle_relayout_allowed": false
+  }
+}

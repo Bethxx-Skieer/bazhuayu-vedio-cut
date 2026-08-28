@@ -1,0 +1,203 @@
+{
+  "schema_version": "1.0",
+  "style_id": "product-demo-clean-1920x1080",
+  "design_space": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "safe_margin": 48,
+    "subtitle_reserved_zone": {"x": 44, "y": 797, "width": 1832, "height": 148},
+    "top_ui_safe_zone": {"x": 48, "y": 48, "width": 1824, "height": 104},
+    "render_scale": 2,
+    "downsample_filter": "lanczos"
+  },
+  "font": {
+    "family": "Hiragino Sans GB",
+    "fallback": ["PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC"],
+    "macos_collection_path": "/System/Library/Fonts/Hiragino Sans GB.ttc",
+    "macos_regular_index": 0,
+    "macos_semibold_index": 2,
+    "label_weight": "W6",
+    "number_weight": "W6",
+    "cjk_letter_spacing": 0,
+    "latin_letter_spacing": 0
+  },
+  "palette": {
+    "blue": "#4594FF",
+    "blue_soft": "#DCEBFF",
+    "green": "#2ECC8F",
+    "green_deep": "#167A5A",
+    "green_soft": "#DDF8EE",
+    "charcoal": "#202936",
+    "gray": "#657181",
+    "gray_soft": "#E7EBF0",
+    "white": "#FFFFFF",
+    "warning": "#F5A623",
+    "error": "#E15353"
+  },
+  "focus_box": {
+    "input_action": {
+      "stroke_color": "#4594FF",
+      "stroke_width": 4,
+      "radius": 20,
+      "outer_glow_color": "#4594FF",
+      "outer_glow_opacity": 0.16,
+      "outer_glow_radius": 10,
+      "padding": 12,
+      "fade_in_seconds": 0.16,
+      "hold_seconds": 0.85,
+      "fade_out_seconds": 0.18
+    },
+    "result": {
+      "stroke_color": "#2ECC8F",
+      "stroke_width": 4,
+      "radius": 20,
+      "outer_glow_color": "#2ECC8F",
+      "outer_glow_opacity": 0.14,
+      "outer_glow_radius": 10,
+      "padding": 14,
+      "fade_in_seconds": 0.18,
+      "hold_seconds": 1.2,
+      "fade_out_seconds": 0.2
+    },
+    "rules": {
+      "max_simultaneous": 1,
+      "max_screen_width_ratio": 0.72,
+      "follow_target": true,
+      "minimum_visible_target_ratio": 0.8,
+      "avoid_subtitle_zone": true,
+      "do_not_outline_full_screen": true
+    }
+  },
+  "click_ripple": {
+    "duration_seconds": 0.45,
+    "start_radius": 8,
+    "end_radius": 34,
+    "stroke_width": 4,
+    "color": "#4594FF",
+    "start_opacity": 0.92,
+    "end_opacity": 0.0,
+    "center_dot_radius": 5,
+    "center_dot_duration_seconds": 0.16
+  },
+  "status_chip": {
+    "height": 64,
+    "min_width": 164,
+    "horizontal_padding": 28,
+    "icon_size": 28,
+    "icon_text_gap": 12,
+    "radius": 16,
+    "gap": 16,
+    "font_size": 30,
+    "line_height": 40,
+    "content_align": "center",
+    "vertical_align": "middle",
+    "layout_method": "measure_icon_and_text_group_then_center",
+    "icon_render": "vector_path",
+    "check_stroke_width": 4,
+    "check_line_cap": "round",
+    "check_line_join": "round",
+    "fill_inactive": "#202936D9",
+    "text_inactive": "#CBD3DD",
+    "fill_active": "#256FC7F2",
+    "text_active": "#FFFFFF",
+    "fill_complete": "#167A5AF2",
+    "text_complete": "#FFFFFF",
+    "stroke_width": 0,
+    "shadow": {"color": "#000000", "opacity": 0.16, "blur": 12, "offset_y": 4},
+    "placement": {"anchor": "top_center", "y": 76, "avoid_source_ui": true},
+    "animation": {"fade_seconds": 0.14, "scale_from": 0.96}
+  },
+  "completion_chip": {
+    "micro": {
+      "height": 52,
+      "horizontal_padding": 22,
+      "icon_size": 22,
+      "icon_text_gap": 10,
+      "radius": 14,
+      "font_size": 26,
+      "label": "已完成",
+      "fill": "#167A5AEF",
+      "text": "#FFFFFF",
+      "duration_seconds": 1.0
+    },
+    "task": {
+      "height": 62,
+      "horizontal_padding": 28,
+      "icon_size": 26,
+      "icon_text_gap": 12,
+      "radius": 16,
+      "font_size": 30,
+      "label": "任务完成",
+      "fill": "#167A5AF2",
+      "text": "#FFFFFF",
+      "duration_seconds": 1.4
+    },
+    "delivery": {
+      "height": 68,
+      "horizontal_padding": 32,
+      "icon_size": 28,
+      "icon_text_gap": 14,
+      "radius": 18,
+      "font_size": 34,
+      "label": "成果已交付",
+      "fill": "#167A5AF5",
+      "text": "#FFFFFF",
+      "duration_seconds": 1.8,
+      "content_align": "center",
+      "vertical_align": "middle",
+      "layout_method": "measure_icon_and_text_group_then_center",
+      "icon_render": "vector_path",
+      "check_stroke_width": 5,
+      "check_line_cap": "round",
+      "check_line_join": "round",
+      "placement": {"anchor": "top_right", "x": 1812, "y": 72}
+    }
+  },
+  "progress": {
+    "pulse_diameter": 14,
+    "pulse_gap": 12,
+    "active_color": "#4594FF",
+    "inactive_color": "#BFC8D4",
+    "opacity": 0.9,
+    "cycle_seconds": 1.2,
+    "label_font_size": 26,
+    "label_color": "#657181",
+    "minimum_wait_seconds": 3.0,
+    "maximum_pulses_per_10_seconds": 3
+  },
+  "keyword_highlight": {
+    "fill": "#DCEBFF",
+    "text": "#205CA8",
+    "radius": 8,
+    "horizontal_padding": 8,
+    "vertical_padding": 4,
+    "fade_seconds": 0.15,
+    "hold_seconds": 0.8
+  },
+  "animation": {
+    "default_easing": "cubic-bezier(0.22,0.61,0.36,1)",
+    "entrance_seconds": 0.16,
+    "exit_seconds": 0.18,
+    "maximum_scale_overshoot": 1.03,
+    "motion_blur": false
+  },
+  "intensity_presets": {
+    "subtle": {"visual_opacity_multiplier": 0.82, "focus_hold_multiplier": 0.85, "click_ripple": "key_clicks_only"},
+    "clear": {"visual_opacity_multiplier": 1.0, "focus_hold_multiplier": 1.0, "click_ripple": "meaningful_clicks"},
+    "promo": {"visual_opacity_multiplier": 1.0, "focus_hold_multiplier": 1.12, "click_ripple": "meaningful_clicks"}
+  },
+  "render_rules": {
+    "draw_vectors_at_output_resolution": false,
+    "draw_vectors_at_supersampled_resolution": true,
+    "supersample_scale": 2,
+    "allow_non_integer_scale": false,
+    "minimum_stroke_width_output_px": 3,
+    "minimum_text_contrast_ratio": 4.5,
+    "do_not_stretch_raster_overlays": true,
+    "do_not_cover_subtitles": true,
+    "derive_3x4_from_master": true,
+    "forbid_emoji_glyphs_for_ui_icons": true,
+    "forbid_fixed_text_offsets_inside_chips": true
+  }
+}

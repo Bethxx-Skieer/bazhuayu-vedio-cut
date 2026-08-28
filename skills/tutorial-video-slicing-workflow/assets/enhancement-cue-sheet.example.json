@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "title": "产品演示增强时间线示例",
+  "duration_seconds": 16.0,
+  "preset": "clear",
+  "cues": [
+    {"time": 0.35, "event": "chapter_enter", "note": "章节卡稳定后"},
+    {"time": 2.20, "event": "ui_click", "note": "真实点击输入框"},
+    {"time": 2.55, "event": "typing", "variant": 0},
+    {"time": 2.72, "event": "typing", "variant": 1},
+    {"time": 2.91, "event": "typing", "variant": 2},
+    {"time": 3.10, "event": "typing", "variant": 3},
+    {"time": 3.32, "event": "ime_confirm", "note": "关键词转换完成"},
+    {"time": 4.05, "event": "ui_click", "note": "真实点击提交"},
+    {"time": 4.13, "event": "task_start"},
+    {"time": 5.70, "event": "stage_search"},
+    {"time": 7.00, "event": "stage_clean"},
+    {"time": 8.35, "event": "stage_analyze"},
+    {"time": 10.10, "event": "result_reveal"},
+    {"time": 11.70, "event": "file_created"},
+    {"time": 13.40, "event": "task_complete"},
+    {"time": 14.85, "event": "final_delivery"}
+  ]
+}
