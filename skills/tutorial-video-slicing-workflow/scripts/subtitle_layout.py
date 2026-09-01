@@ -7,30 +7,53 @@ import argparse
 import json
 import math
 import re
+import unicodedata
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
 
 DEFAULT_STYLE = Path(__file__).resolve().parents[1] / "assets/subtitle-style-1920x1080.json"
-CLOSING_MARKS = "」』”’\"'"
+PAIR_OPENERS = {
+    "」": "「",
+    "』": "『",
+    "”": "“",
+    "’": "‘",
+    ")": "(",
+    "）": "（",
+    "]": "[",
+    "】": "【",
+    ">": "<",
+    "》": "《",
+    "〉": "〈",
+}
 
 
 def normalize_subtitle_text(text: str) -> str:
-    """Collapse whitespace and remove terminal Chinese/English full stops."""
+    """Collapse whitespace and remove all terminal punctuation."""
     normalized = re.sub(r"\s+", " ", text).strip()
-    closers = ""
-    while normalized and normalized[-1] in CLOSING_MARKS:
-        closers = normalized[-1] + closers
-        normalized = normalized[:-1].rstrip()
-    normalized = re.sub(r"[。.]+$", "", normalized).rstrip()
-    return normalized + closers
+    while normalized:
+        last = normalized[-1]
+        if unicodedata.category(last).startswith("P") or last in "|｜":
+            normalized = normalized[:-1].rstrip()
+            opener = PAIR_OPENERS.get(last)
+            if opener:
+                opener_at = normalized.rfind(opener)
+                if opener_at >= 0:
+                    normalized = normalized[:opener_at] + normalized[opener_at + 1 :]
+            continue
+        break
+    return normalized
 
 
-def load_font(size: int) -> ImageFont.FreeTypeFont:
+def load_font(size: int, font_file: str | None = None, font_index: int = 0) -> ImageFont.FreeTypeFont:
+    if font_file:
+        return ImageFont.truetype(font_file, size=size, index=font_index)
     candidates = [
         ("/System/Library/Fonts/Hiragino Sans GB.ttc", 2),
         ("/System/Library/Fonts/STHeiti Medium.ttc", 1),
+        ("/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc", 0),
+        ("C:/Windows/Fonts/msyhbd.ttc", 0),
     ]
     for path, index in candidates:
         try:
@@ -57,12 +80,18 @@ def cjk_equivalent_length(text: str) -> float:
     return total
 
 
-def measure_subtitle(text: str, style: dict) -> dict:
+def measure_subtitle(
+    text: str,
+    style: dict,
+    font_file: str | None = None,
+    font_index: int = 0,
+) -> dict:
     clean_text = normalize_subtitle_text(text)
+    collapsed_text = re.sub(r"\s+", " ", text).strip()
     lower = style["lower_third"]
     single = lower["single_line"]
     rules = style["copy_rules"]
-    font = load_font(int(single["font_size"]))
+    font = load_font(int(single["font_size"]), font_file, font_index)
     canvas = Image.new("L", (8, 8))
     draw = ImageDraw.Draw(canvas)
     bounds = draw.textbbox((0, 0), clean_text, font=font)
@@ -76,7 +105,8 @@ def measure_subtitle(text: str, style: dict) -> dict:
     return {
         "original_text": text,
         "text": clean_text,
-        "terminal_full_stop_removed": clean_text != re.sub(r"\s+", " ", text).strip(),
+        "terminal_punctuation_removed": clean_text != collapsed_text,
+        "terminal_full_stop_removed": clean_text != collapsed_text,
         "fits_single_line": fits,
         "recommended_to_split": cjk_length > float(rules["recommended_single_line_cjk_chars"]),
         "overflow_strategy": rules["overflow_strategy"] if not fits else None,

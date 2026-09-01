@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "cue_sheet": "/Users/wang/Documents/Codex/2026-08-12/hsi/work/skill-update-product-demo/tutorial-video-slicing-workflow/assets/enhancement-cue-sheet.example.json",
-  "output": "/Users/wang/Documents/Codex/2026-08-12/hsi/work/skill-update-product-demo/tutorial-video-slicing-workflow/assets/sfx/product-demo-clean/example-timeline-clear.wav",
+  "cue_sheet": "../../enhancement-cue-sheet.example.json",
+  "output": "example-timeline-clear.wav",
   "preset": "clear",
   "duration_seconds": 16.0,
   "sample_rate_hz": 48000,

@@ -1,5 +1,5 @@
 {
-  "version": "2.1-social-caption",
+  "version": "2.2-social-caption",
   "master_canvas": {
     "width": 1920,
     "height": 1080,
@@ -84,9 +84,9 @@
     "font_shrink_allowed": false,
     "overflow_strategy": "split_into_sequential_cues",
     "recommended_single_line_cjk_chars": 20,
-    "terminal_full_stop": "strip",
-    "terminal_full_stop_characters": ["。", "."],
-    "preserve_terminal_question_and_exclamation": true,
+    "terminal_punctuation": "strip_all",
+    "terminal_punctuation_definition": "all Unicode punctuation plus vertical separators",
+    "internal_punctuation": "allow_when_needed",
     "operation_duration_seconds": [2.5, 4.0],
     "result_duration_seconds": [5.0, 8.0],
     "allow_chapter_and_lower_third_overlap": false

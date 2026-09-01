@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0",
+  "font": {
+    "family": "PROJECT_FONT",
+    "brandWeight": 700,
+    "statusWeight": 800,
+    "titleWeight": 800,
+    "subtitleWeight": 700
+  },
+  "hierarchy": {
+    "brandScale": 1,
+    "statusScale": 2,
+    "mainTitleScale": 2.3
+  },
+  "colors": {
+    "canvas": "#FFFFFF",
+    "brand": "#3E62AD",
+    "accent": "#5EE7F2",
+    "text": "#3F3F3F",
+    "muted": "#6B7280",
+    "subtitleBackground": "rgba(24,24,24,0.72)",
+    "subtitleText": "#FFFFFF"
+  },
+  "components": {
+    "brandMark": {},
+    "statusTitle": {},
+    "mainTitle": {},
+    "topLabel": {},
+    "proofViewport": {},
+    "subtitleCard": {}
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "教程与企业业务演示视频工作流"
+  short_description: "素材证据、脚本、配音字幕、画面与横竖版单源生产"
+  default_prompt: "使用 $tutorial-video-slicing-workflow 从原始文章和操作素材建立证据库与唯一脚本，生成匹配的配音字幕时间线、画面和横竖版成片。"

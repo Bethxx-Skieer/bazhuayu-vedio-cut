@@ -146,7 +146,7 @@ def main() -> None:
     draw.rectangle(rect((100, 150, 1820, 178)), fill="#E9EDF2")
     for x, color in [(142, "#FF5F57"), (180, "#FFBD2E"), (218, "#28C840")]:
         draw.ellipse(rect((x - 10, 123, x + 10, 143)), fill=color)
-    draw_text(draw, (286, 134), "产品演示 · 产品演示增强样式",
+    draw_text(draw, (286, 134), "产品演示 · 增强样式预览",
               font(30, True), palette["charcoal"], anchor="lm")
 
     rounded(draw, (134, 210, 430, 914), 18, "#F5F7FA")

@@ -165,7 +165,7 @@ def main() -> int:
     report_cues: list[dict] = []
     caption_specs: list[dict] = []
     for index, cue in enumerate(cues, 1):
-        measured = layout.measure_subtitle(cue["text"], style)
+        measured = layout.measure_subtitle(cue["text"], style, str(font), font_index)
         measured.update({"index": index, "start": cue["start"], "end": cue["end"]})
         report_cues.append(measured)
         if not measured["fits_single_line"]:

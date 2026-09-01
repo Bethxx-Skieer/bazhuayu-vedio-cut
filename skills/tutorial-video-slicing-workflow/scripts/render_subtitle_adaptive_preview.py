@@ -56,7 +56,7 @@ def main() -> None:
     image = Image.new("RGB", (px(OUTPUT[0]), px(OUTPUT[1])), "#F2F5F8")
     draw = ImageDraw.Draw(image, "RGBA")
     draw.text((px(96), px(80)), "单行自适应字幕", font=font(52), fill="#202936")
-    draw.text((px(96), px(146)), "无句号 · 不换行 · 背景框随文字长度变化",
+    draw.text((px(96), px(146)), "无句末标点 · 不换行 · 背景框随文字长度变化",
               font=font(28, False), fill="#657181")
 
     examples = [

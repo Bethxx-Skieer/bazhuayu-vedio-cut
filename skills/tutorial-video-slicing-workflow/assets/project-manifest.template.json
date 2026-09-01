@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "2.0",
+  "project": {
+    "name": "PROJECT_NAME",
+    "mode": "enterprise-business-demo",
+    "goal": "PROJECT_GOAL",
+    "inputRoots": [],
+    "outputRoot": "PROJECT_OUTPUT_ROOT",
+    "targetDurationSec": null,
+    "requestedVariants": [
+      "landscape-16x9"
+    ]
+  },
+  "state": "initialized",
+  "stateHistory": [
+    {
+      "state": "initialized",
+      "at": null,
+      "evidence": "project-manifest.json created"
+    }
+  ],
+  "execution": {
+    "canonicalPath": "verified-scripts",
+    "renderer": "remotion",
+    "moviepyEnabled": false,
+    "allowUnpinnedRuntime": false,
+    "allowSilentFallback": false
+  },
+  "subtitlePolicy": {
+    "terminalPunctuation": "forbidden",
+    "internalPunctuation": "allowed_when_needed",
+    "spokenDisplayWords": "exact_match"
+  },
+  "runtime": {
+    "profileId": null,
+    "reproducibilityLevel": "native-equivalent",
+    "containerImageDigest": null,
+    "nodeVersion": null,
+    "pythonVersion": null,
+    "chromiumVersion": null,
+    "remotionVersion": null,
+    "remotionPath": null,
+    "remotionLockfilePath": null,
+    "ffmpegVersion": null,
+    "ffmpegPath": null,
+    "ffmpegSha256": null,
+    "ttsProvider": null,
+    "ttsModel": null,
+    "voiceId": null,
+    "ttsSettingsSha256": null,
+    "moviepyVersion": null,
+    "fontFiles": [],
+    "fontSha256": [],
+    "subtitleStylePath": null,
+    "subtitleStyleSha256": null
+  },
+  "design": {
+    "tokensPath": null,
+    "overrides": {}
+  },
+  "script": {
+    "activeVersion": null,
+    "locked": false,
+    "sourcePath": null,
+    "sentences": []
+  },
+  "pronunciations": [],
+  "voice": {
+    "styleLocked": false,
+    "samplePath": null,
+    "fullAudioPath": null,
+    "durationSec": null,
+    "reportPath": null
+  },
+  "assets": [],
+  "timeline": {
+    "id": "main-content-v1",
+    "audio": {
+      "path": null,
+      "durationSec": null
+    },
+    "subtitleCues": [],
+    "shots": [],
+    "enhancementCuesPath": null
+  },
+  "variants": {
+    "landscape-16x9": {
+      "contentTimelineId": "main-content-v1",
+      "width": 1920,
+      "height": 1080,
+      "layoutConfigPath": null,
+      "framingOverrides": [],
+      "renderedPath": null
+    }
+  },
+  "approvals": {
+    "script": false,
+    "voiceStyle": false,
+    "preview60": false,
+    "crossChapterFrames": false,
+    "delivery": false
+  },
+  "qa": {
+    "status": "pending",
+    "preview60Path": null,
+    "crossChapterFramesPath": null,
+    "manifestReportPath": null,
+    "renderLockReportPath": null,
+    "notes": []
+  }
+}
