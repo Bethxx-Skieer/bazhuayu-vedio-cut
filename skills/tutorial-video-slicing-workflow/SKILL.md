@@ -38,6 +38,7 @@ version: 3.0.0
 7. 横竖版共用旁白、字幕、镜头 ID、素材入出点和播放速度；禁止复制第二套镜头数组。
 8. 全片渲染前必须同时通过前 60 秒音画预览与跨章节关键帧检查。
 9. 修改脚本、配音、字幕或镜头后，只重做受影响节点及其下游产物；自动校验失败时不得交付或宣称完成。
+10. 阶段 0 自动粗剪仅适用于访谈 / 口播类原始素材，且必须由用户明确请求（如「对这段访谈做自动粗剪与无效片段剔除」）才启用；教程、企业演示、社媒宣发等模式默认不启用，也不进入核心生产链。
 
 ## 任务模式（先选一个主模式，混合任务以最终交付目标为准）
 
@@ -57,6 +58,7 @@ version: 3.0.0
 | 4 画面匹配与动画补齐 | [references/04-visual-matching.md](references/04-visual-matching.md) | 界面事件音效与视觉增强：product-demo-enhancement.md |
 | 5 横版与竖版适配 | [references/05-landscape-portrait-adaptation.md](references/05-landscape-portrait-adaptation.md) | 冰蓝 3:4 画布：xhs-portrait-composition.md ＋ [assets/xhs-portrait-octopus-blue-1080x1440.json](assets/xhs-portrait-octopus-blue-1080x1440.json) |
 | 6 预览、质检与交付 | [references/06-preview-qa-delivery.md](references/06-preview-qa-delivery.md) | 含七目录交付细则与逐项通过条件 |
+| 0 源素材粗剪（访谈类·按需门控） | [references/00-source-rough-cut.md](references/00-source-rough-cut.md) | 仅当用户明确对访谈 / 口播素材请求自动粗剪时进入；脚本 `scripts/auto_rough_cut.py`，两步 run→apply |
 
 ## 项目状态与闸门
 

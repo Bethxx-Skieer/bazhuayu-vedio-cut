@@ -1,4 +1,4 @@
 interface:
   display_name: "教程与企业业务演示视频工作流"
-  short_description: "素材证据、脚本、配音字幕、画面与横竖版单源生产"
-  default_prompt: "使用 $tutorial-video-slicing-workflow 从原始文章和操作素材建立证据库与唯一脚本，生成匹配的配音字幕时间线、画面和横竖版成片。"
+  short_description: "素材证据、脚本、配音字幕、画面与横竖版单源生产；访谈类素材可应要求先做自动粗剪"
+  default_prompt: "使用 $tutorial-video-slicing-workflow 从原始文章和操作素材建立证据库与唯一脚本，生成匹配的配音字幕时间线、画面和横竖版成片。仅当用户明确对访谈 / 口播素材请求自动粗剪与无效片段剔除时，才先调用 scripts/auto_rough_cut.py 做阶段 0 预处理。"

@@ -171,3 +171,27 @@ examples:
         Baseline: {{reference video and golden QC folder (if any}}
 
         Execute validate_project_manifest.py, subtitle/voiceover reports, duration and full-decode media checks, and validate_render_lock.py in order; verify duration, resolution, fps and shot-order consistency against the reference; only after all pass, assemble the seven delivery directories with current finals, keeping work files and previews outside delivery/.
+  - id: interview-source-rough-cut
+    title:
+      zh: 访谈源素材自动粗剪
+      en: Interview Source Rough-Cut
+    description:
+      zh: 仅当用户提供访谈 / 口播素材并明确要求时，自动剔除长静音与重复段落
+      en: Only when the user provides interview footage and explicitly asks, auto-remove long silence and duplicate segments
+    prompt:
+      zh: |-
+        请对这段访谈 / 口播素材做自动粗剪与无效片段剔除：
+
+        源视频：{{访谈或口播视频路径}}
+        转写：{{源视频时间戳对齐的 SRT/VTT/JSON 路径，可选}}
+        输出目录：{{work/ 或输出根目录}}
+
+        先跑 scripts/auto_rough_cut.py run 生成 work/cut_plan.json 供我审阅；我确认后把 review.status 改为 approved，再跑 apply 产出粗剪版。注意：仅当素材确为访谈 / 口播且我明确要求时才做，教程 / 业务演示 / 社媒宣发不做此步；不要静默删除业务内容，长静音阈值与相似度阈值待真实素材验证后再校准。
+      en: |-
+        Do an automatic rough-cut and invalid-segment removal on this interview / talking-head footage:
+
+        Source: {{interview or talking-head video path}}
+        Transcript: {{SRT/VTT/JSON aligned to source timestamps, optional}}
+        Output: {{work/ or output root}}
+
+        Run scripts/auto_rough_cut.py run to produce work/cut_plan.json for my review; after I approve, set review.status to approved and run apply for the rough-cut. Only do this when the footage is genuinely interview/talking-head AND I explicitly ask; skip for tutorials, business demos and promos; never silently drop substantive content, and recalibrate silence/similarity thresholds after testing on real material.
