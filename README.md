@@ -1,6 +1,6 @@
 # bazhuayu-vedio-cut
 
-团队视频剪辑工作仓库：沉淀「教程 / 社媒宣发 / 企业业务演示」视频剪辑技能组、项目工程与规范。技能组 v3 起为 **WorkBuddy 与千问办公双适用**——同一份内容，两端各自读取自己的接口元数据。
+团队视频剪辑工作仓库：沉淀「教程 / 社媒宣发 / 企业业务演示 / 人物访谈」视频剪辑技能、项目工程与规范。教程技能组 v3 起为 **WorkBuddy 与千问办公双适用**——同一份内容，两端各自读取自己的接口元数据。访谈剪辑作为独立 skill 维护，不改变教程的配音生产链。
 
 ## 目录结构
 
@@ -9,13 +9,14 @@ bazhuayu-vedio-cut/
 ├── README.md
 ├── .gitignore
 ├── skills/
-│   └── tutorial-video-slicing-workflow/   # 视频剪辑技能组（主调度 + 子Skill + 脚本 + 素材）
+│   ├── tutorial-video-slicing-workflow/   # 教程/宣发/演示技能组（主调度 + 子Skill + 脚本 + 素材）
 │       ├── SKILL.md                       # 主文档 ≤100 行：模式/阶段路由与全局硬闸门
 │       ├── .skill-metadata.yaml           # 千问办公推荐查询（7 个能力各一条，中英双语）
 │       ├── agents/openai.yaml             # WorkBuddy（Codex）接口卡：展示名/简介/默认提示词
 │       ├── references/                    # 子 Skill：阶段 01–07 + 三种模式 + 清单/运行时/字幕/配音等
 │       ├── scripts/                       # 清单校验、字幕烧录、配音、音效合成、渲染锁定等
 │       └── assets/                        # 样式/画布/音效库/项目清单与设计 token 模板
+│   └── interview-video-editing/           # 原声访谈：主线/证据/执行脚本 + 可换色组件与生成器
 ├── projects/
 │   ├── _template/                         # 新建剪辑项目的模板（含闸门留痕清单）
 │   └── <项目名>/                          # 每个剪辑项目一个文件夹
@@ -50,10 +51,32 @@ bazhuayu-vedio-cut/
 
 ## 项目协作规范
 
+### 独立访谈剪辑 skill
+
+完整人物访谈、企业客户访谈使用 [interview-video-editing](skills/interview-video-editing/SKILL.md)。它以实际人物原声为时间基准，不生成或替换受访者旁白。
+
+流程：阅读原素材 → 提炼主线 → 设计叙事节奏 → 回源定位证据 → 唯一执行脚本 → 原声粗剪 → 组件精剪 → 样段与跨章节验收 → 交付。
+
+内置金句、人物主题页、章节气泡、Q卡、正式回答、字幕、证据插入和尾卡。可在项目配置中替换人物、主题、素材和统一配色；默认 1080×1440、30fps。依赖 Node.js 22+、FFmpeg/FFprobe，生成工程使用 HyperFrames 0.8.34。
+
+安装时把 `skills/interview-video-editing/` 整个目录复制到个人 skill 目录。Codex 调用示例：`$interview-video-editing 请根据这些访谈视频和文字记录梳理主线，先给我剪辑执行脚本`。包含 `agents/openai.yaml` 和 `.skill-metadata.yaml`；生成/渲染测试在 macOS 完成，其他宿主和操作系统需按实际环境验证。
+
+```bash
+node skills/interview-video-editing/scripts/test.mjs
+# 将 assets/project.example.json 复制到项目目录，替换素材与文案后：
+node skills/interview-video-editing/scripts/build.mjs --validate projects/my-interview/config.json
+node skills/interview-video-editing/scripts/build.mjs projects/my-interview/config.json work/interview-build-001
+# 在生成目录执行 npm run check，通过后 npm run render
+```
+
+公开分发包只含通用代码、流程、样式和填写示例，不包含客户人像、原始采访、客户关键帧、本机绝对路径或测试视频。示例内容不是事实，必须替换并校对后才能用于客户成片。现有教程 skill 的“阶段 0 自动粗剪”保持原有授权与审核机制；独立访谈 skill 不自动调用它。
+
+### 通用协作
+
 - 每个剪辑任务在 `projects/` 下建独立文件夹，命名 `日期-题材`（如 `20260901-voc宣发复刻`），从 `projects/_template/` 复制起步。
 - 视频、音频、截图等大文件一律不提交（见 `.gitignore`）；素材走网盘/共享目录，仓库只保留脚本、cue 表、时间轴、配置和说明文档。
 - 正式交付结构遵循 `references/06-preview-qa-delivery.md`（`delivery/01_正式视频`–`07_工程`），项目清单与校验报告随工程入库。
-- 修改剪辑规范时直接改 `skills/tutorial-video-slicing-workflow/` 并提 PR，合并后成员 `git pull` 重新拷贝到宿主技能目录即全员生效。
+- 修改剪辑规范时更新对应的 `skills/tutorial-video-slicing-workflow/` 或 `skills/interview-video-editing/` 并提 PR，合并后成员 `git pull` 重新拷贝对应 skill 到宿主技能目录。
 
 ## 更新流程
 

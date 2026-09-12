@@ -1,0 +1,20 @@
+{
+  "version":1,
+  "note":"仅为可填写的结构示例。先替换原声、转写、人物与证据，示例文案不能用于真实客户发布。",
+  "media":{
+    "hook":{"kind":"video","path":"input/interview.mp4","in":0,"out":2},
+    "answerOne":{"kind":"video","path":"input/interview.mp4","in":2,"out":6},
+    "answerTwo":{"kind":"video","path":"input/interview.mp4","in":6,"out":9},
+    "person":{"kind":"image","path":"input/person-layout.png"},
+    "proof":{"kind":"image","path":"input/evidence.png"}
+  },
+  "scenes":[
+    {"id":"hook-one","type":"quote","media":"hook","duration":2,"top":760,"kicker":"测试引导语","lines":["这是示例金句",[{"text":"请替换为原话","accent":true}]]},
+    {"id":"speaker","type":"theme","portrait":"person","name":"示例嘉宾","role":"示例身份","title":[[{"text":"把经验变成"},{"text":"系统","accent":true}],[{"text":"让业务持续"},{"text":"改进","accent":true}]],"topics":[["问题背景"],["解决办法"],["具体场景","实际结果"]]},
+    {"id":"q-one","type":"question","chapter":"chapter-one","number":"Q1","label":"问题背景","context":"从业务问题出发","lines":["原来的工作方式",[{"text":"有什么不足","accent":true}]],"fromTopic":0},
+    {"id":"answer-one","type":"answer","chapter":"chapter-one","media":"answerOne","duration":4,"headline":["示例观点第一行",[{"text":"示例观点第二行","accent":true}]],"captions":[{"start":0,"end":2,"text":"这里填写对应原声的第一句"},{"start":2,"end":4,"text":"这里填写对应原声的第二句"}],"evidence":[{"media":"proof","evidenceId":"E001","start":1,"end":3}]},
+    {"id":"q-two","type":"question","chapter":"chapter-two","number":"Q2","label":"解决办法","context":"方法与执行","lines":["后来采用什么",[{"text":"办法解决问题","accent":true}]]},
+    {"id":"answer-two","type":"answer","chapter":"chapter-two","media":"answerTwo","duration":3,"headline":["方法必须落到执行",[{"text":"再观察实际结果","accent":true}]],"captions":[{"start":0,"end":3,"text":"填写第二段实际听到的原话"}]},
+    {"id":"closing","type":"outro","duration":2,"lines":["回到全片核心主题",[{"text":"形成价值收束","accent":true}]]}
+  ]
+}

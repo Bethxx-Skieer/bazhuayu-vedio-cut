@@ -1,0 +1,4 @@
+interface:
+  display_name: "访谈视频剪辑"
+  short_description: "从原素材与访谈主线到证据脚本、金句开场、人物问答和成片交付"
+  default_prompt: "使用 $interview-video-editing，根据这些访谈视频和文字记录梳理主线、编写执行脚本，并套用访谈模板制作视频。"
