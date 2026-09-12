@@ -1,0 +1,7 @@
+{
+  "frame": {"width":1080,"height":1440,"fps":30},
+  "colors":{"gradient":["#36B7FF","#2ADFEB","#72F0B8"],"angle":96,"ink":"#FFFFFF","muted":"#8B98A5","cardInk":"#30343A"},
+  "fontFamily":"PingFang SC",
+  "type":{"tracking":0.04,"leading":1.1,"lineGap":22,"bodyTracking":0.02,"bodyLeading":1.38,"quote":106,"quoteSmall":50,"compact":96,"impact":120,"climax":132,"theme":90,"topic":48,"topicScenes":39,"name":34,"role":26,"qLabel":38,"qContext":44,"qText":78,"answer":54,"caption":40},
+  "motion":{"person":1.5,"title":1.5,"bubble":1,"expand":1,"qLine":0.4,"qStagger":0.45,"qHold":0.3}
+}

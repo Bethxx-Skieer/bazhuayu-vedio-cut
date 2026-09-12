@@ -1,0 +1,31 @@
+examples:
+  - id: interview-story-and-script
+    title:
+      zh: 访谈主线与剪辑执行脚本
+      en: Interview Story and Editing Script
+    description:
+      zh: 阅读原素材，设计主线与叙事节奏，定位证据并输出唯一执行表
+      en: Understand footage, design the narrative, locate evidence and write one editing script
+    prompt:
+      zh: 请根据这些访谈视频和文字记录梳理主线、设计章节节奏，并回源定位原声和证据，先给我唯一剪辑执行脚本，不直接渲染。
+      en: Read these interview videos and transcripts, design a narrative and chapter rhythm, locate source speech and evidence, and deliver one editing script before rendering.
+  - id: interview-template-editing
+    title:
+      zh: 原声访谈模板剪辑
+      en: Template-Based Interview Editing
+    description:
+      zh: 用已确认脚本制作金句、人物主题页、Q卡、回答和证据画面
+      en: Turn an approved script into hooks, a speaker card, questions, answers and evidence inserts
+    prompt:
+      zh: 按已确认的访谈脚本与原声粗剪，使用内置模板制作3:4视频。替换人物、主题和品牌渐变，不新增旁白；先验收完整片头与首个Q&A，再制作后续章节。
+      en: Use the approved interview script and source-audio rough cut to produce a 3:4 video with the built-in template. Replace the speaker, theme and brand gradient without adding narration; review the full opening and first Q&A before producing the rest.
+  - id: interview-incremental-review
+    title:
+      zh: 访谈增量修改与验收
+      en: Incremental Interview Changes and QA
+    description:
+      zh: 只更新受影响模块，检查字幕、遮挡、原声与时间线
+      en: Update only affected modules and check captions, occlusion, source speech and timing
+    prompt:
+      zh: 请按这次修改要求更新当前访谈项目，保留其他内容，检查时间线、原声字幕、人物安全区和配色一致性，再导出修改版。
+      en: Apply these requested changes to the current interview project, preserve unrelated content, check timing, speech captions, speaker safe areas and palette consistency, then export the revision.
