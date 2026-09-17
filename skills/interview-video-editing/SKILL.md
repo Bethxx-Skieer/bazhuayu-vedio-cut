@@ -13,6 +13,7 @@ metadata:
 
 - 新访谈、策划、脚本：读 [workflow.md](references/workflow.md)。只要求策划时不制作视频。
 - 粗剪、成片、视觉修改：读 [components.md](references/components.md)、[production.md](references/production.md)，配置见 [config.md](references/config.md)。
+- 人物访谈字幕、降噪、采访者插话或气口调整：读 [subtitle-audio-workflow.md](references/subtitle-audio-workflow.md)。所有切点变化必须同步重排字幕时间线。
 - 仅改文案、位置、配色或动效：定位受影响配置，保留其他内容，不重启全流程。
 - 审片或交付：读 [qa.md](references/qa.md)。只要求分析时不改视频。
 
@@ -22,7 +23,7 @@ metadata:
 2. 提炼一句话主旨，设计问题顺序、各章作用、金句、叙事节奏和收束。
 3. 按主线精确定位原声与业务证据，记录文件与源时间码；证据不足时调整论点。
 4. 用 assets/execution-script.md 写唯一执行表，明确成片时间、模块作用、上屏文字、原话字幕、声音、源时间码、证据、画面和执行动作。
-5. 脚本与取舍确认后先粗剪原声，用实际时长回填时间线，再精剪。已有执行授权不重复确认。
+5. 脚本与取舍确认后按字幕与音频调整流程粗剪、逐句校对、降噪和去气口，用实际时长回填字幕与画面时间线，再精剪。已有执行授权不重复确认。
 6. 默认结构：金句→人物/主题/气泡→首个Q→回答小节与证据→后续Q&A→价值收束及尾卡。
 7. 验收完整片头与首个Q&A后再批量制作；跨章节抽查并回听完整成片。
 
