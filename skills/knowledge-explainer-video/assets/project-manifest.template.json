@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0",
+  "projectId": "replace-with-project-id",
+  "topic": "replace-with-topic",
+  "audience": "知识型普通观众",
+  "status": "initialized",
+  "format": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "targetDurationSec": 120,
+    "variants": []
+  },
+  "approvals": {
+    "content": {
+      "status": "pending",
+      "approvedAt": null,
+      "notes": ""
+    },
+    "visualDirection": {
+      "status": "pending",
+      "approvedAt": null,
+      "notes": ""
+    }
+  },
+  "sources": [],
+  "narrative": {
+    "structure": "iteration-loop",
+    "activeScriptVersion": "v1",
+    "sentences": []
+  },
+  "visualDirection": {
+    "stylePreset": "simple-comic",
+    "cartoonCharacter": {
+      "enabled": false,
+      "role": "guide",
+      "masterAssetId": null,
+      "poseAssetIds": []
+    },
+    "realFootage": {
+      "enabled": false,
+      "targetShare": 0,
+      "sourcePolicy": "authorized-or-clearly-licensed"
+    },
+    "minVisualCoverage": 0.75,
+    "maxTextOnlyShare": 0.15
+  },
+  "design": {
+    "background": "#087cf0",
+    "paper": "#fffdf4",
+    "ink": "#101820",
+    "accent": "#ffd51f",
+    "secondary": "#18c7c9",
+    "fontFamily": "Microsoft YaHei UI, Microsoft YaHei, sans-serif",
+    "borderRadius": 28,
+    "strokeWidth": 5
+  },
+  "voiceover": {
+    "mode": "manual",
+    "path": null,
+    "durationSec": null,
+    "locked": false
+  },
+  "assets": [],
+  "scenes": [],
+  "outputs": {
+    "silentPreview": null,
+    "finalVideo": null,
+    "qaReport": null
+  }
+}

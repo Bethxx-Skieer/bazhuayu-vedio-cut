@@ -1,0 +1,25 @@
+examples:
+  - id: topic-to-explainer
+    title:
+      zh: 从主题资料制作知识讲解视频
+      en: Build a Knowledge Explainer From Source Material
+    description:
+      zh: 自动拆解资料、确认内容与视觉、生成丰富插画并按人工录音完成横版成片
+      en: Decompose sources, approve story and visual direction, generate rich imagery and finish a landscape video around a human voiceover
+    prompt:
+      zh: |-
+        请使用 $knowledge-explainer-video 制作知识讲解视频：
+
+        主题：{{主题}}
+        资料：{{文件、目录、链接或仓库}}
+        目标受众：{{可选}}
+
+        先梳理事实和叙事结构，第一次确认内容、风格、卡通人物与真实视频策略；再生成角色设定、三张代表帧和转场样片做第二次确认。确认后生成完整素材，并等待我提供人工录音再锁定正式时间线和渲染成片。
+      en: |-
+        Use $knowledge-explainer-video to create a knowledge explainer:
+
+        Topic: {{topic}}
+        Sources: {{files, folders, links or repository}}
+        Audience: {{optional}}
+
+        First establish facts and the narrative, then confirm content, style, cartoon character and real-footage policy. Next confirm a character sheet, three representative frames and a transition sample. After approval, produce the full asset set and wait for my human voiceover before locking the final timeline and rendering.

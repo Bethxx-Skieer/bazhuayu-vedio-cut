@@ -1,0 +1,36 @@
+{
+  "generatedFrom": "project-manifest.json",
+  "manifestVersion": "v1",
+  "readOnlyReviewView": true,
+  "representativeFrames": [
+    {
+      "role": "opening",
+      "sceneId": null,
+      "imagePath": null,
+      "reviewStatus": "pending",
+      "notes": ""
+    },
+    {
+      "role": "core-explanation",
+      "sceneId": null,
+      "imagePath": null,
+      "reviewStatus": "pending",
+      "notes": ""
+    },
+    {
+      "role": "ending",
+      "sceneId": null,
+      "imagePath": null,
+      "reviewStatus": "pending",
+      "notes": ""
+    }
+  ],
+  "transitionSample": {
+    "fromSceneId": null,
+    "toSceneId": null,
+    "videoPath": null,
+    "durationSec": 10,
+    "reviewStatus": "pending",
+    "notes": ""
+  }
+}

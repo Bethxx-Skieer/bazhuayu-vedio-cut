@@ -1,6 +1,6 @@
 # bazhuayu-vedio-cut
 
-团队视频剪辑工作仓库：沉淀「教程 / 社媒宣发 / 企业业务演示 / 人物访谈」视频剪辑技能、项目工程与规范。教程技能组 v3 起为 **WorkBuddy 与千问办公双适用**——同一份内容，两端各自读取自己的接口元数据。访谈剪辑作为独立 skill 维护，不改变教程的配音生产链。
+团队视频剪辑工作仓库：沉淀「教程 / 社媒宣发 / 企业业务演示 / 人物访谈 / 知识讲解动画」视频剪辑技能、项目工程与规范。教程技能组 v3 起为 **WorkBuddy 与千问办公双适用**——同一份内容，两端各自读取自己的接口元数据。访谈剪辑与知识讲解视频均作为独立 skill 维护，按任务显式选择，互不改变既有生产链。
 
 ## 目录结构
 
@@ -16,7 +16,8 @@ bazhuayu-vedio-cut/
 │       ├── references/                    # 子 Skill：阶段 01–07 + 三种模式 + 清单/运行时/字幕/配音等
 │       ├── scripts/                       # 清单校验、字幕烧录、配音、音效合成、渲染锁定等
 │       └── assets/                        # 样式/画布/音效库/项目清单与设计 token 模板
-│   └── interview-video-editing/           # 原声访谈：主线/证据/执行脚本 + 可换色组件与生成器
+│   ├── interview-video-editing/           # 原声访谈：主线/证据/执行脚本 + 可换色组件与生成器
+│   └── knowledge-explainer-video/         # 知识讲解：资料拆解 + 慢节奏动画 + 连续转场 + 人工配音
 ├── projects/
 │   ├── _template/                         # 新建剪辑项目的模板（含闸门留痕清单）
 │   └── <项目名>/                          # 每个剪辑项目一个文件夹
@@ -45,11 +46,28 @@ bazhuayu-vedio-cut/
 - 教程切片：`按章节切这份教程并提取高光，先建素材证据库和唯一脚本给我确认`
 - 企业业务演示：`用这些真实操作素材和业务稿制作演示视频，关键任务连续展示输入→执行→结果`
 - 社媒宣发：`把这段无字幕演示素材剪成效果前置宣发片，先出时间线方案`
+- 知识讲解动画：`$knowledge-explainer-video 用这些资料讲清楚这个主题，先完成内容确认，不要直接出片`
 - 字幕/配音/横竖版派生/质检交付：参考千问办公技能卡片的推荐查询，或 WorkBuddy 默认提示词。
 
 主 `SKILL.md` 只做调度：先选三种叙事模式之一，再按六个阶段加载对应子 Skill；所有模式共享硬闸门（单一时间源、整句配音、真实素材优先、双重预览、校验不过不交付）。
 
 ## 项目协作规范
+
+### 独立知识讲解视频 skill
+
+主题资料、项目演进、方法论、产品能力和概念科普使用 [knowledge-explainer-video](skills/knowledge-explainer-video/SKILL.md)。它不会自动触发，必须显式选择 `$knowledge-explainer-video`，并与教程切片、人物访谈能力并列使用。
+
+输入最低只需“主题 + 资料”。Skill 先建立证据索引，再选择迭代循环、概念拆解或对比论证结构；随后经过两次人工确认：第一次锁定叙事、唯一讲稿、预计时长、画风、卡通人物、真实素材策略和画幅，第二次确认人物设定、三张代表帧、真实素材候选、素材占比及 8–12 秒连续转场样片。默认横版 1920×1080、30fps、约 90–180 秒，知识讲解按慢节奏编排；主画面 8–15 秒，画面内部每 3–6 秒产生一次有意义的变化。
+
+正式成片默认使用人工录制旁白。没有锁定的真人配音时只能生成无声预览，不能标记为最终交付。真实视频优先使用用户提供素材；外部素材必须记录来源、授权、下载日期和哈希，授权不清晰时改用原创插画或组件动画。转场必须从上一镜已有的卡片、人物、图片或节点自然展开，禁止突然切成无关联的全屏卡片。
+
+```bash
+python skills/knowledge-explainer-video/scripts/validate_project.py projects/my-explainer/project-manifest.json
+node skills/knowledge-explainer-video/scripts/build.mjs --preview projects/my-explainer/project-manifest.json work/explainer-preview
+# 人工旁白锁定、时间线对齐且两次确认完成后：
+node skills/knowledge-explainer-video/scripts/build.mjs projects/my-explainer/project-manifest.json work/explainer-final
+python skills/knowledge-explainer-video/scripts/qa_render.py projects/my-explainer/project-manifest.json work/explainer-final/out/final.mp4 work/explainer-final/qa
+```
 
 ### 独立访谈剪辑 skill
 
@@ -76,7 +94,7 @@ node skills/interview-video-editing/scripts/build.mjs projects/my-interview/conf
 - 每个剪辑任务在 `projects/` 下建独立文件夹，命名 `日期-题材`（如 `20260901-voc宣发复刻`），从 `projects/_template/` 复制起步。
 - 视频、音频、截图等大文件一律不提交（见 `.gitignore`）；素材走网盘/共享目录，仓库只保留脚本、cue 表、时间轴、配置和说明文档。
 - 正式交付结构遵循 `references/06-preview-qa-delivery.md`（`delivery/01_正式视频`–`07_工程`），项目清单与校验报告随工程入库。
-- 修改剪辑规范时更新对应的 `skills/tutorial-video-slicing-workflow/` 或 `skills/interview-video-editing/` 并提 PR，合并后成员 `git pull` 重新拷贝对应 skill 到宿主技能目录。
+- 修改剪辑规范时更新对应的 `skills/tutorial-video-slicing-workflow/`、`skills/interview-video-editing/` 或 `skills/knowledge-explainer-video/` 并提 PR，合并后成员 `git pull` 重新拷贝对应 skill 到宿主技能目录。
 
 ## 更新流程
 
@@ -87,5 +105,6 @@ git pull
 
 ## 版本记录
 
+- **knowledge-explainer-video v1**：新增可显式选择的知识讲解视频 Skill；内置证据驱动叙事、两次人工确认、卡通角色素材表、真实素材授权台账、慢节奏标准、共享载体连续转场、人工配音锁定、Remotion 工程生成与逐边界 QA。
 - **v3（当前）**：基于「视频剪辑复刻最小包」改造；主文档压缩至 ≤100 行调度器，references 重构为阶段 01–07 + 三模式 + 清单/运行时规范；保留 `agents/openai.yaml`，新增 `.skill-metadata.yaml` 与双语 frontmatter，WorkBuddy 与千问办公双适用。
 - v2：初次千问办公合规化改造（详见 git 历史）。

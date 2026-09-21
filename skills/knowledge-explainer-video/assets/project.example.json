@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.0",
+  "projectId": "knowledge-explainer-example",
+  "topic": "一个能力怎样通过迭代逐步完善",
+  "audience": "第一次接触该项目的普通观众",
+  "status": "visual_direction_approved",
+  "format": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "targetDurationSec": 28,
+    "variants": []
+  },
+  "approvals": {
+    "content": {
+      "status": "approved",
+      "approvedAt": "2026-09-19T00:00:00+08:00",
+      "notes": "测试样例"
+    },
+    "visualDirection": {
+      "status": "approved",
+      "approvedAt": "2026-09-19T00:00:00+08:00",
+      "notes": "测试样例"
+    }
+  },
+  "sources": [
+    {
+      "sourceId": "SRC001",
+      "type": "document",
+      "pathOrUrl": "fixture://project-history",
+      "title": "项目迭代资料",
+      "license": "test-fixture",
+      "retrievedAt": "2026-09-19",
+      "evidence": "测试用虚构资料，不代表真实事实"
+    }
+  ],
+  "narrative": {
+    "structure": "iteration-loop",
+    "activeScriptVersion": "v1",
+    "sentences": [
+      {
+        "narrationId": "N001",
+        "text": "第一步先让能力真正可用",
+        "purpose": "opening",
+        "evidenceIds": ["SRC001"],
+        "targetDurationSec": 8,
+        "startSec": null,
+        "endSec": null
+      },
+      {
+        "narrationId": "N002",
+        "text": "可用之后又出现稳定性问题",
+        "purpose": "problem",
+        "evidenceIds": ["SRC001"],
+        "targetDurationSec": 9,
+        "startSec": null,
+        "endSec": null
+      },
+      {
+        "narrationId": "N003",
+        "text": "每次解决新问题，能力边界都会再向前一步",
+        "purpose": "ending",
+        "evidenceIds": ["SRC001"],
+        "targetDurationSec": 11,
+        "startSec": null,
+        "endSec": null
+      }
+    ]
+  },
+  "visualDirection": {
+    "stylePreset": "simple-comic",
+    "cartoonCharacter": {
+      "enabled": true,
+      "role": "guide",
+      "masterAssetId": null,
+      "poseAssetIds": []
+    },
+    "realFootage": {
+      "enabled": false,
+      "targetShare": 0,
+      "sourcePolicy": "authorized-or-clearly-licensed"
+    },
+    "minVisualCoverage": 0.75,
+    "maxTextOnlyShare": 0.15
+  },
+  "design": {
+    "background": "#087cf0",
+    "paper": "#fffdf4",
+    "ink": "#101820",
+    "accent": "#ffd51f",
+    "secondary": "#18c7c9",
+    "fontFamily": "Microsoft YaHei UI, Microsoft YaHei, sans-serif",
+    "borderRadius": 28,
+    "strokeWidth": 5
+  },
+  "voiceover": {
+    "mode": "manual",
+    "path": null,
+    "durationSec": null,
+    "locked": false
+  },
+  "assets": [],
+  "scenes": [
+    {
+      "sceneId": "S001",
+      "title": "先做到可用",
+      "startSec": 0,
+      "durationSec": 10,
+      "narrationIds": ["N001"],
+      "anchor": {
+        "anchorId": "ability-card",
+        "label": "可用能力",
+        "box": {"x": 0.34, "y": 0.28, "width": 0.32, "height": 0.35}
+      },
+      "visualBeats": [
+        {
+          "beatId": "B001",
+          "kind": "diagram",
+          "assetId": null,
+          "startSec": 0.5,
+          "durationSec": 8.5,
+          "box": {"x": 0.1, "y": 0.2, "width": 0.8, "height": 0.55},
+          "text": "问题 → 第一个可用版本",
+          "emphasis": "key"
+        }
+      ],
+      "transitionOut": {
+        "mode": "continuity",
+        "anchorId": "ability-card",
+        "durationSec": 1
+      }
+    },
+    {
+      "sceneId": "S002",
+      "title": "新问题出现",
+      "startSec": 9,
+      "durationSec": 10,
+      "narrationIds": ["N002"],
+      "anchor": {
+        "anchorId": "ability-card",
+        "label": "稳定性问题",
+        "box": {"x": 0.12, "y": 0.25, "width": 0.34, "height": 0.4}
+      },
+      "visualBeats": [
+        {
+          "beatId": "B002",
+          "kind": "diagram",
+          "assetId": null,
+          "startSec": 0.8,
+          "durationSec": 8.2,
+          "box": {"x": 0.08, "y": 0.18, "width": 0.84, "height": 0.58},
+          "text": "能用，不等于稳定",
+          "emphasis": "key"
+        }
+      ],
+      "transitionOut": {
+        "mode": "continuity",
+        "anchorId": "ability-card",
+        "durationSec": 1
+      }
+    },
+    {
+      "sceneId": "S003",
+      "title": "能力继续生长",
+      "startSec": 18,
+      "durationSec": 10,
+      "narrationIds": ["N003"],
+      "anchor": {
+        "anchorId": "ability-card",
+        "label": "能力路径",
+        "box": {"x": 0.28, "y": 0.2, "width": 0.44, "height": 0.46}
+      },
+      "visualBeats": [
+        {
+          "beatId": "B003",
+          "kind": "diagram",
+          "assetId": null,
+          "startSec": 0.6,
+          "durationSec": 8.7,
+          "box": {"x": 0.08, "y": 0.18, "width": 0.84, "height": 0.58},
+          "text": "可用 → 稳定 → 提效 → 可追溯 → 团队化",
+          "emphasis": "key"
+        }
+      ],
+      "transitionOut": null
+    }
+  ],
+  "outputs": {
+    "silentPreview": null,
+    "finalVideo": null,
+    "qaReport": null
+  }
+}

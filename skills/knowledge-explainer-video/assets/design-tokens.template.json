@@ -1,0 +1,36 @@
+{
+  "name": "simple-comic-blue",
+  "colors": {
+    "background": "#087cf0",
+    "paper": "#fffdf4",
+    "ink": "#101820",
+    "accent": "#ffd51f",
+    "secondary": "#18c7c9",
+    "warning": "#ff8a1f",
+    "success": "#a8efb5"
+  },
+  "typography": {
+    "fontFamily": "Microsoft YaHei UI, Microsoft YaHei, sans-serif",
+    "titlePx": 66,
+    "headingPx": 42,
+    "bodyPx": 28,
+    "captionPx": 30,
+    "fontWeight": 800
+  },
+  "shape": {
+    "strokeWidth": 5,
+    "borderRadius": 28,
+    "shadowOffset": 9
+  },
+  "motion": {
+    "beatFadeSec": 0.4,
+    "continuityTransitionSec": 1.2,
+    "textReplacementSec": 0.8
+  },
+  "safeArea": {
+    "left": 72,
+    "right": 72,
+    "top": 54,
+    "bottom": 64
+  }
+}
