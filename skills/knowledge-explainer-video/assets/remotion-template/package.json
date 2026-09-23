@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@remotion/cli": "4.0.526",
+    "@remotion/captions": "4.0.526",
     "@remotion/media": "4.0.526",
     "react": "19.3.0",
     "react-dom": "19.3.0",

@@ -12,16 +12,18 @@ export const project = {
     sentences: [],
   },
   design: {
-    background: '#087cf0',
-    paper: '#fffdf4',
-    ink: '#101820',
-    accent: '#ffd51f',
-    secondary: '#18c7c9',
+    background: '#faf9f5',
+    paper: '#fffdf8',
+    ink: '#273630',
+    accent: '#bf7949',
+    secondary: '#688a77',
     fontFamily: 'Microsoft YaHei UI, Microsoft YaHei, sans-serif',
-    borderRadius: 28,
-    strokeWidth: 5,
+    borderRadius: 18,
+    strokeWidth: 2,
   },
   voiceover: {mode: 'manual', path: null, publicPath: null, durationSec: null, locked: false},
+  captions: {enabled: false},
+  music: {enabled: false},
   assets: [],
   scenes: [
     {
@@ -30,7 +32,7 @@ export const project = {
       startSec: 0,
       durationSec: 12,
       narrationIds: [],
-      anchor: {anchorId: 'topic-card', label: '主题与资料', box: {x: 0.32, y: 0.26, width: 0.36, height: 0.38}},
+      anchor: null,
       visualBeats: [
         {
           beatId: 'B001',

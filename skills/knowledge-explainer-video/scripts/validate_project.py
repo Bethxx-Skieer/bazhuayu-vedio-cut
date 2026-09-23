@@ -65,8 +65,9 @@ def validate_manifest(manifest: dict[str, Any], manifest_path: Path) -> dict[str
     def warn(message: str) -> None:
         warnings.append(message)
 
-    if manifest.get("schemaVersion") != "1.0":
-        error("schemaVersion must be '1.0'")
+    schema_version = manifest.get("schemaVersion")
+    if schema_version not in {"1.0", "1.1"}:
+        error("schemaVersion must be '1.0' or '1.1'")
     if not str(manifest.get("projectId", "")).strip():
         error("projectId is required")
     if not str(manifest.get("topic", "")).strip():
@@ -157,7 +158,11 @@ def validate_manifest(manifest: dict[str, Any], manifest_path: Path) -> dict[str
         beats = scene.get("visualBeats") or []
         if not beats:
             error(f"scene {scene_id} has no visualBeats")
-        beat_starts = sorted(float(beat.get("startSec", 0)) for beat in beats if _number(beat.get("startSec")))
+        elif schema_version == "1.1" and _status_at_least(manifest, "timeline_locked") and all(
+            beat.get("kind") in {"diagram", "text-card"} and not beat.get("assetId") for beat in beats
+        ):
+            warn(f"scene {scene_id} has only text fallbacks; confirm a purpose-built visual scene exists before delivery")
+        beat_starts = sorted(float(beat["startSec"]) for beat in beats if beat.get("changeRole", "major") == "major" and _number(beat.get("startSec")))
         for left, right in zip(beat_starts, beat_starts[1:]):
             gap = right - left
             if gap < 3:
@@ -179,6 +184,10 @@ def validate_manifest(manifest: dict[str, Any], manifest_path: Path) -> dict[str
                 error(f"beat {beat_id} exceeds scene {scene_id}")
             if beat.get("emphasis") == "key" and beat_duration < 1.5:
                 error(f"key beat {beat_id} must remain visible for at least 1.5s")
+            if beat.get("changeRole", "major") not in {"major", "micro"}:
+                error(f"beat {beat_id} changeRole must be major or micro")
+            if beat.get("surface", "none") not in {"none", "panel"}:
+                error(f"beat {beat_id} surface must be none or panel")
             _validate_box(beat.get("box") or {}, f"beat {beat_id}", error)
             asset_id = beat.get("assetId")
             if asset_id and asset_id not in assets:
@@ -189,6 +198,34 @@ def validate_manifest(manifest: dict[str, Any], manifest_path: Path) -> dict[str
             if beat.get("kind") == "text-card":
                 text_intervals.append(absolute)
 
+        action = scene.get("storyAction")
+        if schema_version == "1.1" and _status_at_least(manifest, "timeline_locked") and not action:
+            error(f"scene {scene_id} needs storyAction at timeline_locked")
+        if action:
+            for field in ("question", "concept", "action", "outcome"):
+                if not str(action.get(field, "")).strip():
+                    error(f"scene {scene_id} storyAction.{field} is required")
+            known_beats = {beat.get("beatId") for beat in beats}
+            object_ids = action.get("objectIds")
+            if not isinstance(object_ids, list) or not object_ids:
+                error(f"scene {scene_id} storyAction.objectIds needs visual beat IDs")
+            else:
+                for object_id in object_ids:
+                    if object_id not in known_beats:
+                        error(f"scene {scene_id} storyAction references unknown beat {object_id}")
+            actor_id = action.get("actorId")
+            if actor_id is not None and actor_id not in known_beats:
+                error(f"scene {scene_id} storyAction references unknown actor beat {actor_id}")
+            elif actor_id is not None and next((beat.get("kind") for beat in beats if beat.get("beatId") == actor_id), None) != "character":
+                error(f"scene {scene_id} storyAction.actorId must reference a character beat")
+            if action.get("triggerNarrationId") not in (scene.get("narrationIds") or []):
+                error(f"scene {scene_id} storyAction triggerNarrationId must belong to the scene")
+            action_start, action_end, hold = action.get("startSec"), action.get("endSec"), action.get("holdSec")
+            if not all(_number(value) for value in (action_start, action_end, hold)):
+                error(f"scene {scene_id} storyAction needs numeric startSec, endSec and holdSec")
+            elif action_start < 0 or action_end <= action_start or hold < 0 or action_end + hold > duration + 0.001:
+                error(f"scene {scene_id} storyAction must fit within the scene, including its hold")
+
         transition = scene.get("transitionOut")
         if transition:
             mode = transition.get("mode")
@@ -198,7 +235,7 @@ def validate_manifest(manifest: dict[str, Any], manifest_path: Path) -> dict[str
             if not _number(trans_duration) or trans_duration <= 0:
                 error(f"scene {scene_id} transition duration must be positive")
             elif mode == "continuity" and not 0.8 <= trans_duration <= 1.5:
-                error(f"scene {scene_id} continuity transition must be 0.8–1.5s")
+                warn(f"scene {scene_id} continuity transition is {trans_duration:.2f}s; review against the narration and reading load")
             if mode == "continuity":
                 if not transition.get("anchorId"):
                     error(f"scene {scene_id} continuity transition needs anchorId")
@@ -250,6 +287,62 @@ def validate_manifest(manifest: dict[str, Any], manifest_path: Path) -> dict[str
                 error(f"sentence {sid} needs actual startSec/endSec at timeline_locked")
             elif sentence["endSec"] <= sentence["startSec"]:
                 error(f"sentence {sid} endSec must be after startSec")
+
+        captions = manifest.get("captions") or {}
+        if schema_version == "1.1" and "captions" not in manifest:
+            error("schemaVersion 1.1 needs captions.enabled")
+        if captions.get("enabled"):
+            caption_path = _resolve(base, captions.get("sourcePath"))
+            if not caption_path or not caption_path.exists():
+                error("enabled captions need an existing Caption JSON sourcePath")
+            else:
+                try:
+                    cues = json.loads(caption_path.read_text(encoding="utf-8"))
+                except (OSError, ValueError) as exc:
+                    error(f"captions sourcePath cannot be read: {exc}")
+                    cues = None
+                if not isinstance(cues, list) or not cues:
+                    error("captions source must be a nonempty Caption JSON array")
+                else:
+                    previous_end = 0
+                    max_end = float(voice.get("durationSec") or 0) * 1000
+                    max_lines = (captions.get("style") or {}).get("maxLines", 2)
+                    for cue_index, cue in enumerate(cues):
+                        if not isinstance(cue, dict):
+                            error(f"caption {cue_index} must be an object")
+                            continue
+                        start_ms, end_ms = cue.get("startMs"), cue.get("endMs")
+                        if not isinstance(cue.get("text"), str) or not cue["text"].strip() or not _number(start_ms) or not _number(end_ms):
+                            error(f"caption {cue_index} needs text, startMs and endMs")
+                            continue
+                        if not float(start_ms).is_integer() or not float(end_ms).is_integer():
+                            error(f"caption {cue_index} times must use integer milliseconds")
+                        if start_ms < previous_end or end_ms <= start_ms or end_ms > max_end + 100:
+                            error(f"caption {cue_index} overlaps, has invalid duration or exceeds the voiceover")
+                        if _number(max_lines) and cue["text"].count("\n") + 1 > max_lines:
+                            error(f"caption {cue_index} exceeds the configured maximum line count")
+                        previous_end = end_ms
+                        for key in ("timestampMs", "confidence"):
+                            if key not in cue or (cue[key] is not None and not _number(cue[key])):
+                                error(f"caption {cue_index} needs numeric-or-null {key}")
+            style = captions.get("style") or {}
+            for key in ("fontSize", "maxWidth", "maxLines"):
+                if key in style and (not _number(style[key]) or style[key] <= 0):
+                    error(f"captions.style.{key} must be positive")
+            if "bottom" in style and (not _number(style["bottom"]) or style["bottom"] < 0):
+                error("captions.style.bottom must be nonnegative")
+
+        music = manifest.get("music") or {}
+        if music.get("enabled"):
+            music_path = _resolve(base, music.get("path"))
+            if not music_path or not music_path.exists():
+                error("enabled music needs an existing file path")
+            if music.get("sourceId") not in sources:
+                error("enabled music needs a known sourceId")
+            if not str(music.get("license", "")).strip():
+                error("enabled music needs license information")
+            if not _number(music.get("gain")) or not 0 <= music["gain"] <= 1:
+                error("music.gain must be between 0 and 1")
 
     return {
         "status": "error" if errors else ("warning" if warnings else "ok"),

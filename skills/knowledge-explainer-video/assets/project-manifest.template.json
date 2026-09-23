@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "projectId": "replace-with-project-id",
   "topic": "replace-with-topic",
   "audience": "知识型普通观众",
@@ -46,14 +46,14 @@
     "maxTextOnlyShare": 0.15
   },
   "design": {
-    "background": "#087cf0",
-    "paper": "#fffdf4",
-    "ink": "#101820",
-    "accent": "#ffd51f",
-    "secondary": "#18c7c9",
+    "background": "#faf9f5",
+    "paper": "#fffdf8",
+    "ink": "#273630",
+    "accent": "#bf7949",
+    "secondary": "#688a77",
     "fontFamily": "Microsoft YaHei UI, Microsoft YaHei, sans-serif",
-    "borderRadius": 28,
-    "strokeWidth": 5
+    "borderRadius": 18,
+    "strokeWidth": 2
   },
   "voiceover": {
     "mode": "manual",
@@ -61,11 +61,30 @@
     "durationSec": null,
     "locked": false
   },
+  "captions": {
+    "enabled": true,
+    "sourcePath": null,
+    "style": {
+      "fontSize": 40,
+      "bottom": 42,
+      "maxWidth": 1400,
+      "maxLines": 2
+    }
+  },
+  "music": {
+    "enabled": false,
+    "path": null,
+    "sourceId": null,
+    "license": null,
+    "gain": 0.18,
+    "ducking": true
+  },
   "assets": [],
   "scenes": [],
   "outputs": {
     "silentPreview": null,
     "finalVideo": null,
-    "qaReport": null
+    "qaReport": null,
+    "captions": null
   }
 }

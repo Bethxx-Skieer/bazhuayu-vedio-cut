@@ -77,9 +77,9 @@ def main() -> int:
     if decode.returncode != 0:
         errors.append(f"full decode failed: {decode.stderr.strip()}")
 
+    fps = float(fmt.get("fps", 30))
     boundary_dir = args.output_dir / "boundaries"
     boundary_dir.mkdir(parents=True, exist_ok=True)
-    fps = float(fmt.get("fps", 30))
     for scene in manifest.get("scenes", [])[:-1]:
         transition = scene.get("transitionOut") or {}
         boundary = float(scene["startSec"]) + float(scene["durationSec"]) - float(transition.get("durationSec", 0))
@@ -93,6 +93,47 @@ def main() -> int:
             if result.returncode != 0:
                 warnings.append(f"could not extract boundary frame {target.name}: {result.stderr.strip()}")
 
+    action_dir = args.output_dir / "actions"
+    action_dir.mkdir(parents=True, exist_ok=True)
+    for scene in manifest.get("scenes", []):
+        action = scene.get("storyAction") or {}
+        if not action:
+            continue
+        start = float(scene["startSec"]) + float(action["startSec"])
+        end = float(scene["startSec"]) + float(action["endSec"])
+        for suffix, timestamp in (("start", start), ("middle", (start + end) / 2), ("outcome", end)):
+            target = action_dir / f"{scene['sceneId']}-{suffix}.png"
+            result = run([
+                ffmpeg, "-y", "-v", "error", "-ss", f"{timestamp:.6f}", "-i", str(args.video),
+                "-frames:v", "1", str(target)
+            ])
+            if result.returncode != 0:
+                warnings.append(f"could not extract action frame {target.name}: {result.stderr.strip()}")
+
+    caption_dir = args.output_dir / "captions"
+    if (manifest.get("captions") or {}).get("enabled") and manifest["captions"].get("sourcePath"):
+        caption_path = Path(manifest["captions"]["sourcePath"])
+        if not caption_path.is_absolute():
+            caption_path = args.manifest.resolve().parent / caption_path
+        if caption_path.exists():
+            try:
+                cues = json.loads(caption_path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                cues = None
+            if isinstance(cues, list) and cues:
+                selected = {0, len(cues) // 2, len(cues) - 1, max(range(len(cues)), key=lambda i: len(cues[i]["text"]))}
+                caption_dir.mkdir(parents=True, exist_ok=True)
+                for cue_index in sorted(selected):
+                    cue = cues[cue_index]
+                    timestamp = (float(cue["startMs"]) + float(cue["endMs"])) / 2000
+                    target = caption_dir / f"caption-{cue_index + 1:03d}.png"
+                    result = run([
+                        ffmpeg, "-y", "-v", "error", "-ss", f"{timestamp:.6f}", "-i", str(args.video),
+                        "-frames:v", "1", str(target)
+                    ])
+                    if result.returncode != 0:
+                        warnings.append(f"could not extract caption frame {target.name}: {result.stderr.strip()}")
+
     report = {
         "status": "error" if errors else ("warning" if warnings else "ok"),
         "errors": errors,
@@ -102,6 +143,9 @@ def main() -> int:
         "actualDurationSec": actual_duration,
         "media": media,
         "boundaryFrames": str(boundary_dir.resolve()),
+        "actionFrames": str(action_dir.resolve()),
+        "captionFrames": str(caption_dir.resolve()) if caption_dir.exists() else None,
+        "manualReviewRequired": ["watch the full film", "inspect all boundary and action frames", "listen to voice and music together", "check caption legibility and overlap"],
     }
     args.output_dir.mkdir(parents=True, exist_ok=True)
     report_path = args.output_dir / "qa-report.json"

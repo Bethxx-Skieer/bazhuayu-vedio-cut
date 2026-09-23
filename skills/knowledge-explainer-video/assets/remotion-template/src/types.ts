@@ -1,3 +1,5 @@
+import type {Caption} from '@remotion/captions';
+
 export type Box = {x: number; y: number; width: number; height: number};
 
 export type Asset = {
@@ -19,9 +21,24 @@ export type VisualBeat = {
   box: Box;
   text?: string | null;
   emphasis?: 'key' | 'normal' | string;
+  changeRole?: 'major' | 'micro';
+  surface?: 'none' | 'panel';
   sourceInSec?: number;
   sourceOutSec?: number;
   playbackRate?: number;
+};
+
+export type StoryAction = {
+  question: string;
+  concept: string;
+  actorId: string | null;
+  objectIds: string[];
+  action: string;
+  outcome: string;
+  triggerNarrationId: string;
+  startSec: number;
+  endSec: number;
+  holdSec: number;
 };
 
 export type Scene = {
@@ -30,7 +47,8 @@ export type Scene = {
   startSec: number;
   durationSec: number;
   narrationIds: string[];
-  anchor?: {anchorId: string; label: string; box: Box} | null;
+  storyAction?: StoryAction | null;
+  anchor?: {anchorId: string; label: string; box: Box; surface?: 'none' | 'panel'} | null;
   visualBeats: VisualBeat[];
   transitionOut?: {mode: 'continuity' | 'section-reset'; anchorId?: string | null; durationSec: number} | null;
 };
@@ -46,6 +64,7 @@ export type NarrationSentence = {
 };
 
 export type ProjectManifest = {
+  schemaVersion?: '1.0' | '1.1';
   projectId: string;
   topic: string;
   audience: string;
@@ -63,6 +82,8 @@ export type ProjectManifest = {
     strokeWidth: number;
   };
   voiceover: {mode: 'manual'; path?: string | null; publicPath?: string | null; durationSec?: number | null; locked: boolean};
+  captions?: {enabled: boolean; sourcePath?: string | null; cues?: Caption[]; style?: {fontSize?: number; bottom?: number; maxWidth?: number; maxLines?: number}};
+  music?: {enabled: boolean; path?: string | null; publicPath?: string | null; sourceId?: string | null; license?: string | null; gain?: number; ducking?: boolean};
   assets: Asset[];
   scenes: Scene[];
 };

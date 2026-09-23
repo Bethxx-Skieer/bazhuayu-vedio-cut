@@ -10,6 +10,7 @@ import {
   useVideoConfig,
 } from 'remotion';
 import {project} from './project.generated';
+import {customScenes, customTransitions} from './CustomScenes';
 import type {Asset, Box, Scene, VisualBeat} from './types';
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
@@ -33,14 +34,15 @@ const MediaBeat: React.FC<{beat: VisualBeat; asset?: Asset}> = ({beat, asset}) =
   const opacity = interpolate(frame, [start, start + fadeFrames, end - fadeFrames, end], [0, 1, 1, 0], clamp);
   if (frame < start || frame > end) return null;
 
+  const framed = beat.surface === 'panel';
   const common: React.CSSProperties = {
     ...boxStyle(beat.box, width, height),
     opacity,
-    overflow: 'hidden',
-    border: `${project.design.strokeWidth}px solid ${project.design.ink}`,
-    borderRadius: project.design.borderRadius,
-    boxShadow: `9px 11px 0 ${project.design.ink}`,
-    background: project.design.paper,
+    overflow: framed ? 'hidden' : 'visible',
+    border: framed ? `${project.design.strokeWidth}px solid ${project.design.ink}` : undefined,
+    borderRadius: framed ? project.design.borderRadius : undefined,
+    boxShadow: framed ? `4px 5px 0 ${project.design.ink}18` : undefined,
+    background: framed ? project.design.paper : 'transparent',
     boxSizing: 'border-box',
   };
 
@@ -59,8 +61,8 @@ const MediaBeat: React.FC<{beat: VisualBeat; asset?: Asset}> = ({beat, asset}) =
   }
   if (asset?.publicPath && ['illustration', 'character', 'screenshot'].includes(beat.kind)) {
     return (
-      <div style={{...common, background: beat.kind === 'character' ? 'transparent' : project.design.paper}}>
-        <Img src={staticFile(asset.publicPath)} style={{width: '100%', height: '100%', objectFit: beat.kind === 'character' ? 'contain' : 'cover'}} />
+      <div style={common}>
+        <Img src={staticFile(asset.publicPath)} style={{width: '100%', height: '100%', objectFit: beat.kind === 'screenshot' ? 'cover' : 'contain'}} />
       </div>
     );
   }
@@ -71,10 +73,10 @@ const MediaBeat: React.FC<{beat: VisualBeat; asset?: Asset}> = ({beat, asset}) =
         ...common,
         display: 'grid',
         placeItems: 'center',
-        padding: 36,
+        padding: framed ? 24 : 0,
         color: project.design.ink,
-        fontSize: beat.kind === 'text-card' ? 42 : 50,
-        fontWeight: 900,
+        fontSize: beat.kind === 'text-card' ? 36 : 42,
+        fontWeight: 700,
         lineHeight: 1.25,
         textAlign: 'center',
       }}
@@ -94,15 +96,14 @@ const AnchorCard: React.FC<{scene: Scene; opacity: number}> = ({scene, opacity})
         opacity,
         display: 'grid',
         placeItems: 'center',
-        padding: 24,
+        padding: scene.anchor.surface === 'panel' ? 18 : 0,
         boxSizing: 'border-box',
-        border: `${project.design.strokeWidth}px solid ${project.design.ink}`,
-        borderRadius: project.design.borderRadius,
-        background: project.design.paper,
-        boxShadow: `9px 11px 0 ${project.design.ink}`,
+        border: scene.anchor.surface === 'panel' ? `${project.design.strokeWidth}px solid ${project.design.ink}` : undefined,
+        borderRadius: scene.anchor.surface === 'panel' ? project.design.borderRadius : undefined,
+        background: scene.anchor.surface === 'panel' ? project.design.paper : 'transparent',
         color: project.design.ink,
-        fontSize: 34,
-        fontWeight: 900,
+        fontSize: 32,
+        fontWeight: 700,
         textAlign: 'center',
         zIndex: 8,
       }}
@@ -119,18 +120,22 @@ const SceneLayer: React.FC<{scene: Scene; previous?: Scene}> = ({scene, previous
   const inFrames = (previous?.transitionOut?.durationSec ?? 0) * fps;
   const outFrames = (scene.transitionOut?.durationSec ?? 0) * fps;
   const sceneIn = inFrames ? interpolate(frame, [0, inFrames], [0, 1], clamp) : 1;
-  const sceneOut = outFrames ? interpolate(frame, [durationFrames - outFrames, durationFrames], [1, 0], clamp) : 1;
   const anchorIn = inFrames ? interpolate(frame, [inFrames * 0.72, inFrames], [0, 1], clamp) : 1;
   const anchorOut = outFrames
     ? interpolate(frame, [durationFrames - outFrames, durationFrames - outFrames * 0.72], [1, 0], clamp)
     : 1;
+  const CustomScene = customScenes[scene.sceneId];
   return (
-    <AbsoluteFill style={{opacity: sceneIn * sceneOut, background: project.design.background, fontFamily: project.design.fontFamily}}>
-      <div style={{position: 'absolute', left: 72, top: 54, color: project.design.paper, fontSize: 54, fontWeight: 900, textShadow: `4px 4px 0 ${project.design.ink}`}}>
-        {scene.title}
-      </div>
-      {scene.visualBeats.map((beat) => <MediaBeat key={beat.beatId} beat={beat} asset={beat.assetId ? assets.get(beat.assetId) : undefined} />)}
-      <AnchorCard scene={scene} opacity={anchorIn * anchorOut} />
+    <AbsoluteFill style={{clipPath: `inset(0 ${(1 - sceneIn) * 100}% 0 0)`, background: project.design.background, fontFamily: project.design.fontFamily}}>
+      {CustomScene ? <CustomScene scene={scene} localFrame={frame} /> : (
+        <>
+          <div style={{position: 'absolute', left: 72, top: 54, color: project.design.ink, fontSize: 28, fontWeight: 650}}>
+            {scene.title}
+          </div>
+          {scene.visualBeats.map((beat) => <MediaBeat key={beat.beatId} beat={beat} asset={beat.assetId ? assets.get(beat.assetId) : undefined} />)}
+          <AnchorCard scene={scene} opacity={anchorIn * anchorOut} />
+        </>
+      )}
     </AbsoluteFill>
   );
 };
@@ -141,6 +146,8 @@ const MorphTransition: React.FC<{from: Scene; to: Scene}> = ({from, to}) => {
   if (!from.anchor || !to.anchor || !from.transitionOut) return null;
   const duration = from.transitionOut.durationSec * fps;
   const progress = interpolate(frame, [0, duration], [0, 1], clamp);
+  const CustomTransition = customTransitions[from.sceneId];
+  if (CustomTransition) return <CustomTransition from={from} to={to} progress={progress} />;
   const oldOpacity = interpolate(progress, [0.35, 0.52], [1, 0], clamp);
   const newOpacity = interpolate(progress, [0.48, 0.68], [0, 1], clamp);
   const box: Box = {
@@ -155,15 +162,14 @@ const MorphTransition: React.FC<{from: Scene; to: Scene}> = ({from, to}) => {
         ...boxStyle(box, width, height),
         display: 'grid',
         placeItems: 'center',
-        padding: 24,
+        padding: from.anchor.surface === 'panel' || to.anchor.surface === 'panel' ? 18 : 0,
         boxSizing: 'border-box',
-        border: `${project.design.strokeWidth}px solid ${project.design.ink}`,
-        borderRadius: project.design.borderRadius,
-        background: project.design.paper,
-        boxShadow: `${interpolate(progress, [0, 0.5, 1], [6, 16, 9], clamp)}px ${interpolate(progress, [0, 0.5, 1], [8, 20, 11], clamp)}px 0 ${project.design.ink}`,
+        border: from.anchor.surface === 'panel' || to.anchor.surface === 'panel' ? `${project.design.strokeWidth}px solid ${project.design.ink}` : undefined,
+        borderRadius: from.anchor.surface === 'panel' || to.anchor.surface === 'panel' ? project.design.borderRadius : undefined,
+        background: from.anchor.surface === 'panel' || to.anchor.surface === 'panel' ? project.design.paper : 'transparent',
         color: project.design.ink,
-        fontSize: 34,
-        fontWeight: 900,
+        fontSize: 32,
+        fontWeight: 700,
         textAlign: 'center',
         zIndex: 30,
       }}
@@ -177,39 +183,50 @@ const MorphTransition: React.FC<{from: Scene; to: Scene}> = ({from, to}) => {
 const CaptionLayer: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const seconds = frame / fps;
-  const sentence = project.narrative.sentences.find((item) =>
-    item.startSec != null && item.endSec != null && seconds >= item.startSec && seconds < item.endSec,
-  );
-  if (!sentence) return null;
+  if (!project.captions?.enabled) return null;
+  const milliseconds = frame / fps * 1000;
+  const cue = project.captions.cues?.find((item) => milliseconds >= item.startMs && milliseconds < item.endMs);
+  if (!cue) return null;
+  const style = project.captions.style;
   return (
     <div
       style={{
         position: 'absolute',
-        left: 240,
-        right: 240,
-        bottom: 48,
-        padding: '18px 32px',
-        border: `${project.design.strokeWidth}px solid ${project.design.ink}`,
-        borderRadius: 22,
-        background: project.design.paper,
+        left: '50%',
+        translate: '-50% 0',
+        width: 'max-content',
+        maxWidth: style?.maxWidth ?? 1400,
+        bottom: style?.bottom ?? 42,
+        padding: '2px 12px',
         color: project.design.ink,
-        boxShadow: `7px 8px 0 ${project.design.ink}`,
+        WebkitTextStroke: `1px ${project.design.paper}`,
+        textShadow: `0 1px 4px ${project.design.paper}`,
         fontFamily: project.design.fontFamily,
-        fontSize: 31,
-        fontWeight: 800,
-        lineHeight: 1.35,
+        fontSize: style?.fontSize ?? 40,
+        fontWeight: 650,
+        lineHeight: 1.25,
         textAlign: 'center',
         zIndex: 60,
       }}
     >
-      {sentence.text}
+      {cue.text}
     </div>
   );
 };
 
 export const KnowledgeExplainer: React.FC = () => {
   const {fps} = useVideoConfig();
+  const finalStatuses = new Set(['timeline_locked', 'preview_approved', 'rendered', 'qa_passed', 'delivered']);
+  if (project.schemaVersion === '1.1' && finalStatuses.has(project.status)) {
+    const unfinished = project.scenes.filter((scene) =>
+      scene.visualBeats.every((beat) =>
+        (beat.kind === 'diagram' || beat.kind === 'text-card') && !beat.assetId,
+      ) && !customScenes[scene.sceneId],
+    );
+    if (unfinished.length) {
+      throw new Error(`Purpose-built visual scene required before rendering: ${unfinished.map((scene) => scene.sceneId).join(', ')}`);
+    }
+  }
   return (
     <AbsoluteFill style={{background: project.design.background}}>
       {project.scenes.map((scene, index) => (
@@ -233,6 +250,22 @@ export const KnowledgeExplainer: React.FC = () => {
       })}
       <CaptionLayer />
       {project.voiceover.publicPath ? <Audio src={staticFile(project.voiceover.publicPath)} /> : null}
+      {project.music?.enabled && project.music.publicPath ? (
+        <Audio
+          src={staticFile(project.music.publicPath)}
+          loop
+          volume={(audioFrame) => {
+            const seconds = audioFrame / fps;
+            const gain = project.music?.gain ?? 0.18;
+            if (!project.music?.ducking) return gain;
+            const distance = project.narrative.sentences.reduce((best, sentence) => {
+              if (sentence.startSec == null || sentence.endSec == null) return best;
+              return Math.min(best, Math.max(sentence.startSec - seconds, seconds - sentence.endSec, 0));
+            }, Infinity);
+            return gain * interpolate(distance, [0, 0.3], [0.55, 1], clamp);
+          }}
+        />
+      ) : null}
     </AbsoluteFill>
   );
 };
