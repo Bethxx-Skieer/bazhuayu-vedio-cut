@@ -1,6 +1,16 @@
-# bazhuayu-vedio-cut
+# 八爪鱼视频制作 Skill 库（bazhuayu-vedio-cut）
 
-团队视频剪辑工作仓库：沉淀「教程 / 社媒宣发 / 企业业务演示 / 人物访谈」视频剪辑技能、项目工程与规范。教程技能组 v3 起为 **WorkBuddy 与千问办公双适用**——同一份内容，两端各自读取自己的接口元数据。访谈剪辑作为独立 skill 维护，不改变教程的配音生产链。
+这是一个面向运营、内容和知识传播工作的 **AI 视频制作流程仓库**。它把团队做过的教程剪辑、案例宣发、业务演示、客户访谈和知识讲解动画，整理成可选择的 Skill、工程模板、脚本和质检规则。目标不是“上传素材后一键出片”，而是让不同成员从资料到成片都能按同一套可检查的步骤工作，减少重复剪辑和返工。
+
+你提供主题、资料、录屏或访谈视频，以及目标平台和已有录音；选定对应 Skill 后，AI 协助梳理内容、设计分镜与素材、对齐声音和画面、制作字幕与版本，并在交付前检查事实、节奏、转场和画面遮挡。讲稿、视觉方向及最终效果仍由人确认。按任务可产出讲稿、分镜、项目清单、可编辑工程、成片和质检记录，而不只是一份视频文件。
+
+| 要做的视频 | 典型输入 | 主要用途 |
+|---|---|---|
+| 教程切片、案例宣发、业务演示 | 教程录屏、真实操作素材、平台要求 | 从一份素材制作结构清楚、适合不同平台的案例或演示视频，并保留真实操作链路 |
+| 人物访谈 | 采访原片、文字记录、传播重点 | 从原声中整理主线、删去重复表达，保留观点对应的原始证据 |
+| 知识讲解动画 | 主题、参考资料、人工旁白 | 把抽象概念拆成角色和物件的可见动作，让非专业观众跟得上讲解 |
+
+各能力独立维护，按任务选择，不会让访谈流程改写教程流程。教程技能组 v3 支持 WorkBuddy（Codex）与千问办公；访谈和知识讲解动画各自使用独立 Skill。想先看成片，可观看 [Git 是什么：知识讲解动画案例](examples/git-explainer/README.md)。
 
 ## 目录结构
 
@@ -16,40 +26,98 @@ bazhuayu-vedio-cut/
 │       ├── references/                    # 子 Skill：阶段 01–07 + 三种模式 + 清单/运行时/字幕/配音等
 │       ├── scripts/                       # 清单校验、字幕烧录、配音、音效合成、渲染锁定等
 │       └── assets/                        # 样式/画布/音效库/项目清单与设计 token 模板
-│   └── interview-video-editing/           # 原声访谈：主线/证据/执行脚本 + 可换色组件与生成器
+│   ├── interview-video-editing/           # 原声访谈：主线/证据/执行脚本 + 可换色组件与生成器
+│   └── knowledge-explainer-video/         # 独立知识动画 Skill：内容拆解、角色交互、配音对齐、字幕与逐帧质检
+├── examples/
+│   └── git-explainer/                    # Git 知识讲解动画最终成片及案例说明
 ├── projects/
 │   ├── _template/                         # 新建剪辑项目的模板（含闸门留痕清单）
 │   └── <项目名>/                          # 每个剪辑项目一个文件夹
 └── work/                                  # 临时处理区（解压、截图、中间产物），不入库
 ```
 
-技能组核心机制：`project-manifest.json` 是唯一结构化事实源，状态按 `initialized → evidence_ready → script_locked → voice_style_locked → voice_generated → subtitle_timeline_locked → visual_timeline_locked → preview_approved → variants_rendered → qa_passed → delivered` 推进，每次推进前必须过校验脚本。详见 `references/07-project-lifecycle.md` 与 `references/project-manifest.md`。
+教程技能组以 `project-manifest.json` 为唯一结构化事实源，状态按 `initialized → evidence_ready → script_locked → voice_style_locked → voice_generated → subtitle_timeline_locked → visual_timeline_locked → preview_approved → variants_rendered → qa_passed → delivered` 推进，每次推进前必须过校验脚本。详见 [项目生命周期](skills/tutorial-video-slicing-workflow/references/07-project-lifecycle.md) 与 [清单规范](skills/tutorial-video-slicing-workflow/references/project-manifest.md)；访谈和知识讲解 Skill 使用各自的项目清单与检查流程。
 
 ## 技能安装（团队成员每人一次）
 
-把 `skills/tutorial-video-slicing-workflow/` 整个目录拷贝到所用宿主的技能目录：
+先下载或克隆本仓库，再把想用的 Skill **整个文件夹**复制到宿主的技能目录；可只安装当前任务需要的一个，不必把整个仓库放进去。
+
+| Skill | 要复制的目录 | 在 Codex 中显式调用 |
+|---|---|---|
+| 教程／宣发／业务演示 | `skills/tutorial-video-slicing-workflow/` | `$tutorial-video-slicing-workflow` |
+| 原声人物访谈 | `skills/interview-video-editing/` | `$interview-video-editing` |
+| 知识讲解动画 | `skills/knowledge-explainer-video/` | `$knowledge-explainer-video` |
+
+复制到以下目录，保持 Skill 文件夹名不变：
 
 | 宿主 | 技能目录 |
 |---|---|
 | 千问办公 | Windows `%USERPROFILE%\.qwenworkcn\skills\`；macOS `~/.qwenworkcn/skills/` |
 | WorkBuddy（Codex） | Windows `%USERPROFILE%\.codex\skills\`；macOS `~/.codex/skills/` |
 
-拷贝后重启宿主即可生效；两端共用同一份内容，禁止各自另改出第二套规范。
+复制后重启宿主，在新任务中使用上表的名称调用。教程技能组 v3 明确支持 WorkBuddy（Codex）与千问办公，并共用同一份规范；访谈和知识讲解 Skill 也有独立的宿主元数据，但在不同宿主、操作系统上的生成与渲染仍应按各自文档验证。
 
-环境要求：Python 3.12+、Node.js/npm、imageio-ffmpeg（自动提供 FFmpeg）；运行时的选择、锁定与失败处理规则见 `references/runtime-and-tool-routing.md`，安装前按 `references/project-manifest.md` 的执行策略核对。
+运行环境因 Skill 而异：教程流程按 [运行时说明](skills/tutorial-video-slicing-workflow/references/runtime-and-tool-routing.md) 核对 Python、Node.js 与 FFmpeg；访谈需 Node.js 22+、FFmpeg/FFprobe；知识动画的 Remotion 工程需 Node.js/npm，验证与质检还会用到 Python 和 FFmpeg。只做内容策划时，不必先安装全部渲染依赖。
 
 ## 使用方式
 
-在宿主新会话中附上素材并说明目标即可触发，例如：
+在新任务里先写 Skill 名称，再给素材文件／路径和目标。说明观众是谁、发布平台、希望的时长与画幅、是否已有录音，以及这次只要方案还是要完整视频；不确定的选项可以让 Skill 先提出建议。**一次先选一个主 Skill**：长教程或操作演示选教程 Skill，受访者原声为核心选访谈 Skill，解释一个概念或方法选知识动画 Skill。只要求讲稿、分镜或剪辑方案时，流程停在该阶段，不会直接渲染。
 
-- 教程切片：`按章节切这份教程并提取高光，先建素材证据库和唯一脚本给我确认`
-- 企业业务演示：`用这些真实操作素材和业务稿制作演示视频，关键任务连续展示输入→执行→结果`
-- 社媒宣发：`把这段无字幕演示素材剪成效果前置宣发片，先出时间线方案`
-- 字幕/配音/横竖版派生/质检交付：参考千问办公技能卡片的推荐查询，或 WorkBuddy 默认提示词。
+### 教程、社媒宣发与业务演示：`tutorial-video-slicing-workflow`
 
-主 `SKILL.md` 只做调度：先选三种叙事模式之一，再按六个阶段加载对应子 Skill；所有模式共享硬闸门（单一时间源、整句配音、真实素材优先、双重预览、校验不过不交付）。
+- **准备什么：**教程视频／录屏、文章或产品资料、真实操作素材；再说明是要按章节切教程、先展示结果做宣发，还是展示“输入 → 执行 → 结果”的业务案例。附上目标平台、横竖版要求和品牌规范；没有的项目可先让 Skill 建议。
+- **怎么开始：**`$tutorial-video-slicing-workflow 请把这段八爪鱼 RPA 教程做成 16:9 案例视频和 3:4 社媒版。先整理素材证据库与唯一讲稿，给我确认后再继续。`
+- **会怎样制作：**选定一种主模式 → 整理证据 → 确认唯一讲稿 → 试听并锁定配音 → 按实际声音制作字幕与镜头时间线 → 从同一时间线派生平台版本 → 看前 60 秒和跨章节预览 → 自动与人工质检。真实操作要保留可理解的任务闭环，不用无关画面填充。
+- **你会得到：**按批准范围交付讲稿、证据与项目清单、预览、横竖版成片及工程。脚本未确认时不进入正式配音和全片制作；已有字幕转配音、字幕样式调整和局部返修可在同一项目中继续做。详见 [教程 Skill](skills/tutorial-video-slicing-workflow/SKILL.md)。
 
-## 项目协作规范
+### 人物／客户访谈：`interview-video-editing`
+
+- **准备什么：**原始访谈视频或音频、受访者身份与主题、期望保留的观点、发布平台；最好附转写文本，没有转写时先完成转写并回听。若有客户案例资料，提供可核对的业务证据。
+- **怎么开始：**`$interview-video-editing 请用这段客户访谈做一支人物案例片。先通读原声、删去重复表达，列出主线、金句、问题顺序和对应的源时间码，给我剪辑执行表确认。`
+- **会怎样制作：**看听原片 → 提炼主旨与 Q&A 顺序 → 为每个观点定位原声和证据 → 确认唯一执行表 → 粗剪真实原声 → 加人物、问题、回答和字幕组件 → 先验收片头与首个 Q&A，再审完整片。字幕忠于原话，不用 TTS 冒充受访者说话。
+- **你会得到：**带源时间码的证据表、剪辑执行表，以及按批准范围生成的样段或完整访谈片。默认画幅为 3:4；换人物要换其真实素材与身份信息，不能沿用示例客户。详见 [访谈 Skill](skills/interview-video-editing/SKILL.md)。
+
+### 概念、方法与项目演进：`knowledge-explainer-video`
+
+- **准备什么：**最低只需主题和资料；可以补充目标观众、偏好的画风、是否要卡通人物、是否插入真实视频、字幕要不要开。正式成片还需提供人工录音；暂时没有录音，可以先做到静音预览。
+- **怎么开始：**`$knowledge-explainer-video 请面向 Vibe Coding 新手讲清楚 Git。我提供资料，先给我口语化讲稿和内容结构；确认后再设计人物、代表帧和转场。等我录音后按声音做完整视频。`
+- **会怎样制作：**核对事实、从具体问题切入 → 第一次确认讲稿与风格 → 设计人物、三张代表帧及连续转场样片 → 第二次确认视觉 → 制作图片和角色贴图 → 按人工录音安排动作、停顿、字幕与配乐 → 用 Remotion 制作并逐段审片。
+- **你会得到：**讲稿、分镜与素材计划、代表帧／样片、带字幕的最终视频、独立字幕文件和可复用工程；若关闭字幕则不烧录。人物必须参与操作，转场从已有物件自然承接，重点检查遮挡与穿模。可先看 [Git 成片案例](examples/git-explainer/README.md)，再读 [知识讲解 Skill](skills/knowledge-explainer-video/SKILL.md)。
+
+这些 Skill 都按“先确认内容，再制作下游”的原则运行。你可以在任一阶段要求暂停、只看样段，或针对某处返修；不需要每次都从头做一遍。
+
+## 工程执行与项目协作
+
+上面的用法面向视频需求提出者；下面记录清单、命令和交付约束，供实际制作与维护时使用。
+
+### 独立知识讲解视频 skill
+
+主题资料、项目演进、方法论、产品能力和概念科普使用 [knowledge-explainer-video](skills/knowledge-explainer-video/SKILL.md)。这是与教程切片、人物访谈并列的独立 Skill，不会自动触发；请在 Codex 中明确调用，例如：`$knowledge-explainer-video 用这些资料讲清楚 Git，先确认讲稿和画风`。
+
+最低输入是“主题 + 资料”。Skill 先核对事实与受众，从具体场景中的问题切入，形成唯一口语化讲稿和“旁白句 → 知识点 → 人物／物件动作 → 可见结果”的分镜。每段只推进一个主要认识，让术语对应观众能看见的变化。可以选择迭代循环、概念拆解或对比论证；时长服从内容和实际录音，不硬塞进固定分钟数。
+
+制作有两次确认：第一次确认讲稿、受众、风格、人物是否出现、真实视频策略、画幅和字幕开关；第二次确认角色姿势／表情、三张代表帧、素材比例、字幕安全区及一段 8–12 秒连续转场样片。画面把人物当作行动组件，让角色与物件发生提问、操作、检查、选择或协作；人物和插画默认不套白框，只有真实窗口或容器才加边界。图片可多做候选，成片只保留准确且风格统一的素材；通过景别、局部特写、状态变化和承接物转场增加观赏性，不用通用卡片排版冒充知识动画。
+
+正式成片以用户人工录音为时间基准：按自然句和重点词安排“出现 → 操作 → 反馈 → 停留 → 交接”，允许清理口误和明显冗余空白，不加速正常语速。字幕默认开启、可在第一次确认时关闭；开启时按录音断句，交付烧录字幕视频及独立字幕文件。没有锁定录音时只允许静音预览。用户素材优先；外部真实视频和配乐要登记来源与许可。配乐要能听见又不盖住人声，并在整片试听后调整。
+
+模板只提供时间线、透明素材渲染、字幕／音乐入口和基础组件；复杂知识关系须在 Remotion 工程里制作专门动画。每个场景和转场都要核对人物、物件、动作、结果与承接物；导出边界前／中／后帧以及复杂动作的起点／中间／落点，检查穿模、遮挡、文字互压、箭头语义、提前入场和残留。完整预览、字幕、混音与最终视频解码通过后才能交付。默认横版 1920×1080、30fps；主场景通常约 8–15 秒，仅作规划参考，画面速度由讲解和阅读负担决定。
+
+项目清单使用 [manifest 模板](skills/knowledge-explainer-video/assets/project-manifest.template.json)；新版为 1.1，同时可读取旧版 1.0 清单。复制模板到项目目录、填写素材与分镜并完成相应确认后，在仓库根目录运行：
+
+```bash
+python skills/knowledge-explainer-video/scripts/validate_project.py projects/my-explainer/project-manifest.json
+node skills/knowledge-explainer-video/scripts/build.mjs --validate projects/my-explainer/project-manifest.json
+node skills/knowledge-explainer-video/scripts/build.mjs --preview projects/my-explainer/project-manifest.json work/explainer-preview
+cd work/explainer-preview && npm ci && npm run render:preview
+cd ../..
+# 录音与时间线锁定、两次确认完成后：
+node skills/knowledge-explainer-video/scripts/build.mjs projects/my-explainer/project-manifest.json work/explainer-final
+cd work/explainer-final && npm ci && npm run render
+cd ../..
+python skills/knowledge-explainer-video/scripts/qa_render.py projects/my-explainer/project-manifest.json work/explainer-final/out/final.mp4 work/explainer-final/qa
+```
+
+已完成的 [Git 是什么：从 Vibe Coding 到多人协作](examples/git-explainer/README.md) 可作为本 Skill 的成片案例，包含带字幕和配乐的[最终视频](examples/git-explainer/git-explainer-final.mp4)。案例只提交最终成片，不提交用户原始录音、工程缓存或中间版本。
 
 ### 独立访谈剪辑 skill
 
@@ -74,18 +142,22 @@ node skills/interview-video-editing/scripts/build.mjs projects/my-interview/conf
 ### 通用协作
 
 - 每个剪辑任务在 `projects/` 下建独立文件夹，命名 `日期-题材`（如 `20260901-voc宣发复刻`），从 `projects/_template/` 复制起步。
-- 视频、音频、截图等大文件一律不提交（见 `.gitignore`）；素材走网盘/共享目录，仓库只保留脚本、cue 表、时间轴、配置和说明文档。
+- 视频、音频、截图等大文件原则上不提交（见 `.gitignore`）；唯一例外是 `examples/git-explainer/git-explainer-final.mp4` 公开案例成片。其他素材走网盘/共享目录，仓库只保留脚本、cue 表、时间轴、配置和说明文档。
 - 正式交付结构遵循 `references/06-preview-qa-delivery.md`（`delivery/01_正式视频`–`07_工程`），项目清单与校验报告随工程入库。
-- 修改剪辑规范时更新对应的 `skills/tutorial-video-slicing-workflow/` 或 `skills/interview-video-editing/` 并提 PR，合并后成员 `git pull` 重新拷贝对应 skill 到宿主技能目录。
+- 修改剪辑规范时更新对应的 `skills/tutorial-video-slicing-workflow/`、`skills/interview-video-editing/` 或 `skills/knowledge-explainer-video/` 并提 PR，合并后成员 `git pull` 重新拷贝对应 skill 到宿主技能目录。
 
 ## 更新流程
 
 ```bash
 git pull
-# 再把 skills/tutorial-video-slicing-workflow 覆盖拷贝到所用宿主的技能目录
+# 再把本次需要更新的 skills/tutorial-video-slicing-workflow、
+# skills/interview-video-editing 或 skills/knowledge-explainer-video
+# 整个目录覆盖拷贝到对应宿主技能目录
 ```
 
 ## 版本记录
 
+- **knowledge-explainer-video v1.1**：把 Git 讲解片经验固化为角色／物件／动作／结果分镜、按人工录音对齐的慢节奏动画、无默认白框的透明素材与专门场景、默认可关闭的字幕、许可可查的配乐及逐段／逐边界 QA；清单和 Remotion 模板同步升级。
+- **knowledge-explainer-video v1**：新增可显式选择的知识讲解视频 Skill；内置证据驱动叙事、两次人工确认、卡通角色素材表、真实素材授权台账、慢节奏标准、共享载体连续转场、人工配音锁定、Remotion 工程生成与逐边界 QA。
 - **v3（当前）**：基于「视频剪辑复刻最小包」改造；主文档压缩至 ≤100 行调度器，references 重构为阶段 01–07 + 三模式 + 清单/运行时规范；保留 `agents/openai.yaml`，新增 `.skill-metadata.yaml` 与双语 frontmatter，WorkBuddy 与千问办公双适用。
 - v2：初次千问办公合规化改造（详见 git 历史）。

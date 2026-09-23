@@ -1,6 +1,8 @@
 # ---- 大文件与临时产物：一律不入库 ----
 # 视频
 *.mp4
+# 唯一公开案例成片；其他视频仍不入库
+!examples/git-explainer/git-explainer-final.mp4
 *.mov
 *.mkv
 *.avi

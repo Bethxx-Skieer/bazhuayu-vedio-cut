@@ -1,0 +1,6 @@
+interface:
+  display_name: "知识讲解视频工作流"
+  short_description: "主题资料拆解、丰富插画、连续转场与人工旁白对齐的完整知识视频"
+  default_prompt: "使用 $knowledge-explainer-video 把我提供的主题和资料拆解成慢节奏、图片丰富的知识讲解视频，先完成两次确认，再按人工录音生成 Remotion 成片。"
+policy:
+  allow_implicit_invocation: false
