@@ -38,6 +38,31 @@ bazhuayu-vedio-cut/
 
 教程技能组以 `project-manifest.json` 为唯一结构化事实源，状态按 `initialized → evidence_ready → script_locked → voice_style_locked → voice_generated → subtitle_timeline_locked → visual_timeline_locked → preview_approved → variants_rendered → qa_passed → delivered` 推进，每次推进前必须过校验脚本。详见 [项目生命周期](skills/tutorial-video-slicing-workflow/references/07-project-lifecycle.md) 与 [清单规范](skills/tutorial-video-slicing-workflow/references/project-manifest.md)；访谈和知识讲解 Skill 使用各自的项目清单与检查流程。
 
+## 技术栈、插件与各自的作用
+
+这个仓库不是一款单独的视频编辑软件，而是三套可选的 AI 制作工作流，加上可复用脚本、素材模板和工程。工作时通常是：**Skill 指导内容与审批 → JSON 清单固定事实、时间线和素材 → Python／Node.js 脚本校验与组装 → 对应渲染工具出片 → 自动检查与人工审片**。三套 Skill 共享这个分层思路，但不共用同一个渲染器，也不要求安装所有依赖。
+
+| 技术或组件 | 在本仓库做什么 | 适用范围 |
+|---|---|---|
+| `SKILL.md`、`references/`、`assets/` | 告诉 AI 如何拆内容、确认方案、制作和质检；保存分镜、样式、清单等可复用模板。Skill 是工作方法，不是视频引擎。 | 三套 Skill 各自独立 |
+| `agents/openai.yaml`、`.skill-metadata.yaml` | 向对应宿主展示技能名称、简介或推荐提示词，帮助成员找到并调用 Skill；它们不负责剪辑和渲染。 | 宿主适配元数据；跨宿主能力仍需实际验证 |
+| JSON 项目清单与时间线 | 记录已确认的讲稿、证据／原声位置、镜头、资产、字幕、音乐和交付状态，让脚本与人工审片依据同一份项目事实。 | 各 Skill 有自己的清单格式，不可直接互换 |
+| Python、Node.js 脚本 | 校验输入和阶段条件，处理字幕与资源，生成或检查可执行工程；把重复操作固定下来，而不是每次临时拼命令。 | 按所选 Skill 运行对应脚本 |
+| FFmpeg／FFprobe | 探测素材与时长、裁切和转码、处理音视频、导出检查帧并验证成片能否解码；它们是外部命令行工具，不随 Skill 文件夹自动安装。 | 教程、访谈、知识讲解的媒体处理／质检环节 |
+| Git／GitHub | 管理 Skill、脚本、模板与案例的版本，让团队可以追踪修改和协作；不参与视频渲染。 | 整个仓库 |
+
+三条制作路径使用技术的重点不同：
+
+| 制作路径 | 关键技术及实际职责 |
+|---|---|
+| [教程／宣发／业务演示](skills/tutorial-video-slicing-workflow/SKILL.md) | Python 脚本管理清单、字幕和交付检查；FFmpeg 负责底层媒体操作；正式画面编排默认使用项目中另行准备、锁定依赖的 Remotion 工程，基于同一内容时间线做横竖版。当前仓库提供工作流与脚本，不随 Skill 附赠可直接渲染所有教程的统一工程。需要 AI 配音时接入**另行配置**的本地或云端 TTS 引擎，并锁定音色与参数；`generate-voiceover`、`ffmpeg`、`remotion` 等下游 Skill 只是按需使用的接入／诊断指导，不等于本仓库内置了对应服务。MoviePy 仅是明确选择后的特殊 Python 合成路径，不是 Remotion 出错时的自动替代。详见[运行时与工具路由](skills/tutorial-video-slicing-workflow/references/runtime-and-tool-routing.md)。 |
+| [人物访谈](skills/interview-video-editing/SKILL.md) | Node.js [生成脚本](skills/interview-video-editing/scripts/build.mjs)读取剪辑执行配置，用 FFprobe 核对原片、FFmpeg 裁切原声片段并生成字幕时间线；[HTML 渲染模板](skills/interview-video-editing/assets/renderer.html)交给锁定版本的 HyperFrames 组成画面。原始受访者声音和源时间码是证据，不用 TTS 代说。HyperFrames 是这条访谈路径的渲染运行时，并非整个仓库的统一引擎。 |
+| [知识讲解动画](skills/knowledge-explainer-video/SKILL.md) | Node.js [构建脚本](skills/knowledge-explainer-video/scripts/build.mjs)把已确认的清单、人物贴图、旁白、字幕和音乐装入工程；React／TypeScript 与 Remotion 制作角色、物件、镜头和连续转场，依赖见[工程配置](skills/knowledge-explainer-video/assets/remotion-template/package.json)。Python [校验脚本](skills/knowledge-explainer-video/scripts/validate_project.py)与 [成片质检脚本](skills/knowledge-explainer-video/scripts/qa_render.py)检查清单、时间线、关键帧和解码。正式版以用户人工录音定时；模板不会自动克隆声音，也不会仅凭主题自动生成可核对的真实视频素材。 |
+
+知识讲解工程中的 Remotion 主包负责逐帧时间线、场景和动画；`@remotion/cli` 负责预览与导出，`@remotion/media` 把旁白、音乐或真实视频片段放入画面，`@remotion/captions` 提供字幕数据类型，字幕显示由工程自己的组件实现。React 用于把人物、物件和文字组织成可复用组件，TypeScript 用于约束项目数据。这里的字幕插件**不会自动转写录音**，字幕仍须依据真实录音制作并校对。
+
+图片生成、转写、TTS、音乐库或外部真实视频素材可以按项目需要接入，但不是三套 Skill 的共同内置功能。使用前要确认工具可用性、素材来源和许可，并在项目清单里记录；只复制 Skill 文件夹不会一并安装 Node.js、Python、FFmpeg、字体、浏览器或第三方服务。安装需求应以所选路径及其文档为准。
+
 ## 技能安装（团队成员每人一次）
 
 先下载或克隆本仓库，再把想用的 Skill **整个文件夹**复制到宿主的技能目录；可只安装当前任务需要的一个，不必把整个仓库放进去。
