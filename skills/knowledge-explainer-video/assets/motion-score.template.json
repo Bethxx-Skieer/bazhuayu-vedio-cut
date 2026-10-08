@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "durationSec": 10,
+  "fps": 30,
+  "note": "结构示例，不是通用时长或已批准分镜。正式使用替换全部示例，以实际旁白为时间源。坐标为最终画幅像素。",
+  "actions": [
+    {
+      "id": "select-and-transfer",
+      "objectId": "selected-file",
+      "cue": {
+        "text": "只选这次需要留下的修改",
+        "timeSec": 1
+      },
+      "startSec": 1,
+      "endSec": 7,
+      "principles": [
+        "anticipation",
+        "staging",
+        "arcs",
+        "slow-in-out",
+        "timing"
+      ],
+      "intent": "从三项修改中选择一项，传递到待确认区，不表示已经正式存档。",
+      "phases": [
+        {
+          "name": "anticipation",
+          "startSec": 1,
+          "endSec": 1.6
+        },
+        {
+          "name": "travel",
+          "startSec": 1.6,
+          "endSec": 3.6
+        },
+        {
+          "name": "contact",
+          "startSec": 3.6,
+          "endSec": 4
+        },
+        {
+          "name": "feedback",
+          "startSec": 4,
+          "endSec": 4.5
+        },
+        {
+          "name": "hold",
+          "startSec": 4.5,
+          "endSec": 7
+        }
+      ],
+      "path": {
+        "kind": "arc",
+        "from": {
+          "x": 300,
+          "y": 420
+        },
+        "to": {
+          "x": 1150,
+          "y": 550
+        }
+      },
+      "occlusion": "离开屏幕后转交全局物件层；进入容器时前缘遮罩遮住文件下部。",
+      "secondaryAction": "选中轮廓先提示对象，落位后人物确认；正文不缩放变形。",
+      "camera": "运动期间镜头固定，让观众追踪唯一文件。",
+      "result": "同一文件位于待确认区，其余两项仍留在原处。",
+      "reviewFramesSec": [
+        1,
+        1.6,
+        2.6,
+        3.6,
+        4.5,
+        7
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "id": "handoff-01",
+      "fromScene": "select",
+      "toScene": "explain",
+      "anchorId": "selected-file",
+      "startSec": 7,
+      "endSec": 8.4,
+      "handoffSec": 7.8,
+      "method": "same-object",
+      "direction": "right-to-center",
+      "ownership": "single-overlay",
+      "outgoing": {
+        "x": 1150,
+        "y": 550,
+        "scale": 1,
+        "rotation": 0
+      },
+      "incoming": {
+        "x": 1150,
+        "y": 550,
+        "scale": 1,
+        "rotation": 0
+      },
+      "positionTolerancePx": 1,
+      "scaleTolerance": 0.001,
+      "rotationToleranceDeg": 0.1,
+      "textOutEndSec": 7.6,
+      "textInStartSec": 8.1,
+      "reason": "同一份待确认文件成为填写说明的对象。",
+      "reviewFramesSec": [
+        7,
+        7.4,
+        7.8,
+        8.1,
+        8.4
+      ]
+    }
+  ],
+  "review": {
+    "dataChecks": "pending",
+    "stillReview": "pending",
+    "realtimeMotion": "pending",
+    "audioVisual": "pending",
+    "fullDecode": "not-applicable",
+    "evidence": []
+  }
+}

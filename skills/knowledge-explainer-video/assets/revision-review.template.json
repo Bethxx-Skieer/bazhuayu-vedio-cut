@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "revisionId": null,
+  "baseline": {"videoPath": null, "compositionId": null, "approvalEvidence": null},
+  "request": null,
+  "changes": [],
+  "preserved": [],
+  "affectedTimeRangesSec": [],
+  "export": {
+    "status": "not-started",
+    "videoPath": null,
+    "compositionId": null,
+    "command": null,
+    "fps": null,
+    "durationInFrames": null,
+    "narrationPath": null,
+    "mixPath": null,
+    "captionsPath": null,
+    "musicCreditsPath": null,
+    "sha256": null,
+    "probeReportPath": null
+  },
+  "checks": {
+    "dataAndCode": {"status": "pending", "scope": null, "evidence": []},
+    "geometryAndOcclusion": {"status": "pending", "scope": null, "evidence": []},
+    "encodedStillReview": {"status": "pending", "scope": null, "evidence": []},
+    "realtimeMotion": {"status": "pending", "scope": null, "evidence": []},
+    "audioVisualListening": {"status": "pending", "scope": null, "evidence": []},
+    "captions": {"status": "pending", "scope": null, "evidence": []},
+    "fullDecode": {"status": "pending", "scope": null, "evidence": []}
+  },
+  "unresolved": [],
+  "deliveryStatus": "not-reviewed",
+  "note": "旁车人工记录，不改变旧清单 schema，也不由检查脚本自动宣称审片完成。check status 使用 pending、passed、failed 或 not-applicable；填写实际范围，未执行不能写 passed。"
+}

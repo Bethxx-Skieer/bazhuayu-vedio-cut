@@ -180,7 +180,21 @@ git pull
 # 整个目录覆盖拷贝到对应宿主技能目录
 ```
 
+### 知识动画 Skill 1.3.0：动态设计与修订验收
+
+在既有讲稿、分镜和 Remotion 工程流程上，新增以下可按需读取的制作规范：
+
+- [动画十二原则与动作谱](skills/knowledge-explainer-video/references/motion-language.md)：先确定观看过程，再安排预备、操作、接触、反馈和理解停顿；连续转场检查位置、速度、遮挡及物件所有权。
+- [组件交互契约](skills/knowledge-explainer-video/references/interaction-contracts.md)：人物、指针、镜头和物件协同；屏幕裁切、容器前缘遮挡及多人选择的过程设计，避免穿模和 PPT 化。
+- [特殊视频素材融合](skills/knowledge-explainer-video/references/footage-integration.md)：按内容与源时间码拆解录屏／实拍素材，设计动画切入、局部解释、原声处理与切出。
+- [配乐与 MP4 导出](skills/knowledge-explainer-video/references/audio-and-export.md)：从干声重混，记录许可与署名，核对最终编码、音轨、时长并完整解码。
+- [反馈回归](skills/knowledge-explainer-video/references/feedback-and-regressions.md)与[分项审查模板](skills/knowledge-explainer-video/assets/revision-review.template.json)：分别记录静帧、原速动画、音画试听和文件检查，不把技术成功当作整体效果通过。
+
+动作谱可用 `python skills/knowledge-explainer-video/scripts/validate_motion_score.py <motion-score.json>` 校验。它检查计划数据，不自动评定动画审美。本次不替换 Git 演示视频，也不改变教程或访谈 Skill 的流程。
+
 ## 版本记录
+
+- **knowledge-explainer-video v1.3.0**：补充十二原则、特殊素材融合、组件交互契约、配乐重混、MP4 导出验证和分项审片记录；兼容旧项目清单。
 
 - **knowledge-explainer-video v1.1**：把 Git 讲解片经验固化为角色／物件／动作／结果分镜、按人工录音对齐的慢节奏动画、无默认白框的透明素材与专门场景、默认可关闭的字幕、许可可查的配乐及逐段／逐边界 QA；清单和 Remotion 模板同步升级。
 - **knowledge-explainer-video v1**：新增可显式选择的知识讲解视频 Skill；内置证据驱动叙事、两次人工确认、卡通角色素材表、真实素材授权台账、慢节奏标准、共享载体连续转场、人工配音锁定、Remotion 工程生成与逐边界 QA。

@@ -2,7 +2,7 @@
 name: knowledge-explainer-video
 description: Turn a topic and supporting materials into a narration-led knowledge animation with clear character-object interactions, image-rich scenes, continuous transitions, optional licensed footage, captions, music and whole-film QA. 把主题和资料制作成慢节奏、交互清晰的知识讲解动画。Only use when explicitly selected; ordinary tutorial slicing and source-led interviews use their own skills.
 metadata:
-  version: "1.1.0"
+  version: "1.3.0"
   name_en: Knowledge Explainer Video
   name_zh: 知识讲解视频工作流
 ---
@@ -26,7 +26,7 @@ metadata:
 4. 读取 [visual-direction-and-assets.md](references/visual-direction-and-assets.md)，生成角色设定、三张代表帧和 8–12 秒连续转场样片。
 5. 执行第二次确认：锁定人物、代表帧、素材比例和转场语言。
 6. 批量生成图片与卡通贴图，获取并登记许可清晰的真实素材和配乐；等待用户提供人工录音。
-7. 读取 [pacing-and-transitions.md](references/pacing-and-transitions.md)，按实际录音锁定自然句、重点词、动作阶段、字幕、场景和转场。每个主要场景记录人物／物件／操作／结果。
+7. 读取 [pacing-and-transitions.md](references/pacing-and-transitions.md) 与 [motion-language.md](references/motion-language.md)，先写观看过程及动作谱，再按实际录音锁定自然句、重点词、动作阶段、字幕、场景和转场。十二原则按表达需要选用，不是逐项加特效。
 8. 用 `scripts/build.mjs` 从项目清单生成独立 Remotion 工程。模板只提供时间线和基础组件；知识关系复杂时，在工程中编写专门场景动画。正式渲染前先出低清预览、边界帧和复杂动作的起点／中间／终点帧。
 9. 读取 [qa-and-delivery.md](references/qa-and-delivery.md)，运行自动检查并完成人工视觉验收。
 
@@ -51,7 +51,17 @@ metadata:
 7. 箭头要有唯一明确的来源和目标；轴线延伸至最后节点。逐一检查转场边界与复杂动作中间帧，禁止穿模、重复锚点、提前入场、残留、闪屏和文字互压。
 8. 用户素材优先；网络真实素材和配乐必须有来源与许可记录。音乐应可感知且不压住旁白；试听实际成片后调整音量和必要的人声避让。
 
-## 标准命令
+## 持续制作与反馈路由
+
+- 修改既有视频先读 [feedback-and-regressions.md](references/feedback-and-regressions.md)，核对最新成片、工程、录音及字幕版本；保留已确认的选择与回退入口，不从旧 README 猜当前版本。
+- 用户提供特殊视频或要求吸收参考片时，读 [footage-integration.md](references/footage-integration.md)，按内容和时间码拆解，明确仅借鉴效果／排除视频模型片段等边界。
+- 新动画在设计图之前记录“观众怎样看”的过程，复杂动作填写 [motion-score.template.json](assets/motion-score.template.json)。用 `python scripts/validate_motion_score.py motion-score.json` 检查旁车计划；自动结果不能代替动态审片。
+- 沿用当前工程与已批准声音，不擅自换框架、重录、克隆音色、加情绪指令或发布仓库。只改局部也要复查前后衔接；未经全片音画检查，不把预览称为已交付。
+- 组件搬运、镜头推近、多人物选择或容器出入，读 [interaction-contracts.md](references/interaction-contracts.md)，先落实坐标、接触点和图层所有权，再加特效。不能用静态包围盒通过代替运动中无穿模。
+- 换音乐、混音或导出 MP4，读 [audio-and-export.md](references/audio-and-export.md)。只导出时沿用当前构图、旁白和字幕，不重走创作流程；明确区分“文件已导出”和“全片审片通过”。
+- 用 [revision-review.template.json](assets/revision-review.template.json) 记录本轮基线、改动范围、实际检查证据和未完成项；该文件是旁车，不要求迁移旧项目清单。
+
+## 标准命令与入口
 
 从 [project-manifest.template.json](assets/project-manifest.template.json) 建立唯一项目清单，字段规则见 [project-manifest.md](references/project-manifest.md)。
 
