@@ -47,6 +47,8 @@ python scripts/qa_render.py project-manifest.json final.mp4 work/qa
 - 真实视频是否真正证明或说明当前内容；
 - 字幕是否与人工录音一致、自然断句且无遮挡；音乐是否有存在感而不妨碍每句旁白。
 
+产品能力片另按 [visual-revision-logic.md](visual-revision-logic.md) 核对语义变化、因果反馈、焦点与证据：真实窗口是否保留上下文，报告指引是否跟随口播并定位到对应记录，机制示意和等待压缩是否可辨识。字幕返修按 [captions-and-readability.md](captions-and-readability.md) 查字体、底板、短句间隙及深浅场景，并从实际输出检查原尺寸和 640×360 可读性。
+
 完整观看最终成片，并在局部修复后重新查看相邻镜头和整片。报告中记录发现的问题、修复位置、复查证据和人工审片结论；自动提取帧与完整解码不能代替观看。
 
 ## 交付
